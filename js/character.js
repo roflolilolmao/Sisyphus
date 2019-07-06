@@ -1,3 +1,5 @@
+CHARACTER_HEIGHT = 60
+
 class Character
 {
     constructor(x_position, scene)
@@ -55,7 +57,7 @@ class Character
         head.endFill();
 
         this.container.position.set(
-            this.x_position,
-            scene.ground_height_at(this.x_position))
+            this.scene.screen_position_at(this.x_position),
+            scene.height_at(this.x_position) - CHARACTER_HEIGHT)
     }
 }

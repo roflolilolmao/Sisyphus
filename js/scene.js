@@ -3,13 +3,18 @@ class Scene
     constructor()
     {
         this.ground = new Ground()
-        this.character = new Character(60, this)
-        this.rock = new Rock(120, this)
+        this.character = new Character(2, this)
+        this.rock = new Rock(2.5, this)
     }
 
-    ground_height_at(x_position)
+    height_at(x_position)
     {
         return this.ground.height_at(x_position)
+    }
+
+    screen_position_at(x_position)
+    {
+        return this.ground.screen_position_at(x_position)
     }
 
     drow()
