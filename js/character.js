@@ -23,14 +23,11 @@ class Character
         this.key_state[key.key] = true;
 
         if (key.key === "1")
-            if (this.left_leg.rotation >= 0.5 || this.right_leg.rotation <= -0.5)
+            if (this.left_leg.rotation >= 0.5)
                 app.ticker.add(this.step_one, this)
-        else if (key.key === "2")
-            if (this.left_leg.rotation <= 0.5 || this.right_leg.rotation >= -0.5)
-            {
-                console.log("pk tu marches pas")
+        if (key.key === "2")
+            if (this.left_leg.rotation <= -0.5)
                 app.ticker.add(this.step_two, this)
-            }
         console.log(key);
 
     }
@@ -89,7 +86,7 @@ class Character
 
     step_one(delta)
     {
-        if (this.left_leg.rotation > -0.5)
+        if (this.left_leg.rotation >= -0.5)
         {
             this.left_leg.rotation -= 0.01 * delta;
             this.right_leg.rotation += 0.01 * delta;
@@ -101,7 +98,9 @@ class Character
 
     step_two(delta)
     {
-        if (this.left_leg.rotation < 0.5)
+        console.log("salut")
+        console.log(this.left_leg.rotation)
+        if (this.left_leg.rotation <= 0.5)
         {
             this.left_leg.rotation += 0.01 * delta;
             this.right_leg.rotation -= 0.01 * delta;
