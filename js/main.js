@@ -35,6 +35,8 @@ function update(delta)
     current_bpm += 60 / 3 * delta / 1000
     move_camera()
     scene.character.move(current_speed() * delta / 1000)
+    audio.calculate_playback_speed()
+    audio.set_playback_speed()
     scene.update()
 }
 
