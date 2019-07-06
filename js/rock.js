@@ -15,7 +15,6 @@ class Rock
     {
         this.graphics.position.set(0, 0)
         this.graphics.beginFill(0xFFFFFFF)
-        console.log(this.height, app.screen.height / 3 * 2)
         this.graphics.drawCircle(
             this.x_position,
             this.height - ROCK_RADIUS,
