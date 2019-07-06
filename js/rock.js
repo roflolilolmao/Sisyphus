@@ -11,7 +11,7 @@ class Rock
     drow()
     {
         this.graphics = new PIXI.Graphics()
-        app.stage.addChild(this.graphics)
+        graphics_container.addChild(this.graphics)
         this.graphics.beginFill(0xFFFFFFF)
         this.graphics.drawCircle(0, 0, ROCK_RADIUS)
         this.graphics.endFill()

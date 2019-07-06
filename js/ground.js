@@ -2,14 +2,22 @@ const GROUND_SEGMENTS_COUNT = 10
 const GROUND_SEGMENTS_LENGTH = app.screen.width / (GROUND_SEGMENTS_COUNT - 1)
 const GROUND_NOISE = 10
 const DEFAULT_GROUND_HEIGHT = app.screen.height / 3 * 2
+const PRELOADED_SEGMENTS = 15
+
+function _add_segment(nodes)
+{
+    let n = nodes.length
+    nodes.push(n + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
+}
 
 class Ground
 {
-    constructor()
+    constructor(scene)
     {
-        this.nodes = Array(GROUND_SEGMENTS_COUNT)
-            .fill(DEFAULT_GROUND_HEIGHT)
-            .map(n => n + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
+        this.scene = scene
+        this.nodes = []
+        for(let i = 0; i < PRELOADED_SEGMENTS; i++)
+            _add_segment(this.nodes)
     }
 
     height_at(x_position)
@@ -35,7 +43,7 @@ class Ground
     drow()
     {
         this.graphics = new PIXI.Graphics()
-        app.stage.addChild(this.graphics)
+        graphics_container.addChild(this.graphics)
         this.graphics.position.set(0, 0)
 
         this.graphics.lineStyle(1, 0x00ff00)
@@ -53,6 +61,13 @@ class Ground
 
     update()
     {
-        // Nothing here yet
+        if (this.scene.character.x_position < this.nodes.length - PRELOADED_SEGMENTS)
+            return
+
+        _add_segment(this.nodes)
+        let n = this.nodes.length - 1
+        this.graphics
+            .moveTo((n - 1) * GROUND_SEGMENTS_LENGTH, this.height_at(n - 1))
+            .lineTo(n * GROUND_SEGMENTS_LENGTH, this.height_at(n))
     }
 }

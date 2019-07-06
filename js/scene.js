@@ -2,7 +2,7 @@ class Scene
 {
     constructor()
     {
-        this.ground = new Ground()
+        this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(2.5, this)
 
