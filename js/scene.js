@@ -5,8 +5,9 @@ class Scene
         this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(2.5, this)
+        this.sky = new Sky()
 
-        this.game_objects = [this.ground, this.character, this.rock]
+        this.game_objects = [this.ground, this.character, this.rock, this.sky]
     }
 
     height_at(x_position)
