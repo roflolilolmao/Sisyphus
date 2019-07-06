@@ -1,6 +1,6 @@
 const textures = {
-    'ground': PIXI.Texture.from('assets/images/MountainRepeat.png'),
-    'sky': PIXI.Texture.from('assets/images/MountainScrollerSkyRepeat.png'),
+    'ground': PIXI.Texture.from('https://roflolilolmao.github.io/Sisyphus/assets/images/MountainRepeat.png'),
+    'sky': PIXI.Texture.from('https://roflolilolmao.github.io/Sisyphus/assets/images/MoutainScrollerSkyRepeat.jpg'),
 }
 
 const brt = new PIXI.BaseRenderTexture(300, 300, PIXI.SCALE_MODES.LINEAR, 1)
