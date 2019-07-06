@@ -1,18 +1,15 @@
-let DEFAULT_FLOOR_HEIGHT = 20
-let NOISE = 10
-
 class Scene
 {
     constructor()
     {
-        this.rock = new Rock()
         this.ground = new Ground()
-        this.character = new Character(app.screen.width / 2, this)
+        this.character = new Character(60, this)
+        this.rock = new Rock(120, this)
     }
 
     ground_height_at(x_position)
     {
-        this.ground.height_at(x_position)
+        return this.ground.height_at(x_position)
     }
 
     drow()
