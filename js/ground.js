@@ -7,9 +7,8 @@ const PRELOADED_SEGMENTS = 15
 function _add_segment(nodes)
 {
     let n = nodes.length
-    let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH
-    console.log(current_bpm, current_slope)
-    nodes.push(-current_slope + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
+    let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / 4)
+    nodes.push(-(n - PRELOADED_SEGMENTS) * current_slope + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
 }
 
 class Ground
