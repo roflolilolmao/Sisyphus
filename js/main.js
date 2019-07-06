@@ -1,11 +1,12 @@
 const app = new PIXI.Application();
+const ticker = PIXI.Ticker.shared
+
 let scene = null
 let current_bpm = 80
-let last_call = 0
 
 function current_speed()
 {
-    return current_bpm * 0.001
+    return current_bpm * 0.1
 }
 
 window.onload = function () {
@@ -14,16 +15,15 @@ window.onload = function () {
     loadBasicCanvas()
 };
 
-function update(timestamp)
+function update(delta)
 {
-    delta = timestamp - last_call
     scene.character.move(current_speed() * delta / 1000)
     scene.update()
-    window.requestAnimationFrame(update)
 }
 
 function loadBasicCanvas()
 {
     scene.drow()
-    window.requestAnimationFrame(update)
+    ticker.add(update)
+    ticker.start()
 }

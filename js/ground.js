@@ -22,8 +22,8 @@ class Ground
 
         let floating_part = x_position - Math.floor(x_position)
         return (
-            this.nodes[Math.floor(x_position)] * floating_part +
-            this.nodes[Math.ceil(x_position)] * (1 - floating_part)
+            this.nodes[Math.floor(x_position)] * (1 - floating_part) +
+            this.nodes[Math.ceil(x_position)] * floating_part
         )
     }
 
