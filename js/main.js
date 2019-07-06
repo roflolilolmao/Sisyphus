@@ -8,7 +8,7 @@ const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
 
 let scene = null
 let audio = null;
-let current_bpm = 80
+var current_bpm = 80
 
 function current_speed()
 {
@@ -32,6 +32,7 @@ function update(delta)
         )
     }
 
+    current_bpm += 60 / 3 * delta / 1000
     move_camera()
     scene.character.move(current_speed() * delta / 1000)
     scene.update()

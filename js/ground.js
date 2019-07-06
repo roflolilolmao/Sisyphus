@@ -7,7 +7,9 @@ const PRELOADED_SEGMENTS = 15
 function _add_segment(nodes)
 {
     let n = nodes.length
-    nodes.push(n + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
+    let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH
+    console.log(current_bpm, current_slope)
+    nodes.push(-current_slope + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
 }
 
 class Ground
@@ -46,7 +48,7 @@ class Ground
         graphics_container.addChild(this.graphics)
         this.graphics.position.set(0, 0)
 
-        this.graphics.lineStyle(1, 0x00ff00)
+        this.graphics.lineStyle(5, 0x00ff00)
             .moveTo(0, this.height_at(0))
         let aled = this
         this.nodes.forEach(
