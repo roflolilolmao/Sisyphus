@@ -2,7 +2,7 @@ class Character
 {
     constructor(x_position, scene)
     {
-        this.height = scene.ground_height_at(x_position)
+        this.scene = scene
         this.x_position = x_position
 
         this.container = new PIXI.Container()
@@ -54,6 +54,8 @@ class Character
         head.drawCircle(0, 0, 8);
         head.endFill();
 
-        this.container.position.set(60, this.height - this.container.height + 10);
+        this.container.position.set(
+            this.x_position,
+            scene.ground_height_at(this.x_position))
     }
 }

@@ -1,12 +1,15 @@
 const GROUND_SEGMENTS_COUNT = 10
 const GROUND_SEGMENTS_LENGTH = app.screen.width / GROUND_SEGMENTS_COUNT
+const GROUND_NOISE = 100
 const DEFAULT_GROUND_HEIGHT = app.screen.height / 3 * 2
 
 class Ground
 {
     constructor()
     {
-        this.nodes = Array(GROUND_SEGMENTS_COUNT).fill(DEFAULT_GROUND_HEIGHT)
+        this.nodes = Array(GROUND_SEGMENTS_COUNT)
+            .fill(DEFAULT_GROUND_HEIGHT)
+            .map(n => n + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
         this.graphics = new PIXI.Graphics()
         app.stage.addChild(this.graphics)
     }
@@ -33,6 +36,14 @@ class Ground
 
         this.graphics.lineStyle(1, 0x00ff00)
             .moveTo(0, this.height_at(0))
-            .lineTo(app.screen.width, this.height_at(0))
+        let aled = this
+        this.nodes.forEach(
+            function(n, i)
+            {
+                aled.graphics.lineTo(
+                    (i + 1) * GROUND_SEGMENTS_LENGTH,
+                    aled.height_at(n))
+            }
+        )
     }
 }
