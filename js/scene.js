@@ -1,10 +1,13 @@
 let DEFAULT_FLOOR_HEIGHT = 20
+let NOISE = 10
+let FLOOR_SEGMENTS_COUNT = 10
+let FLOOR_SEGMENTS_LENGTH = SCREEN_WIDTH / FLOOR_SEGMENTS_COUNT
 
 class Scene
 {
     constructor()
     {
-        this.floor = Array(SCREEN_WIDTH).fill(DEFAULT_FLOOR_HEIGHT)
+        this.floor = Array(FLOOR_SEGMENTS_COUNT).fill(DEFAULT_FLOOR_HEIGHT)
         this.character = new Character(floor.length / 2, this)
     }
 
