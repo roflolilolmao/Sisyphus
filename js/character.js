@@ -2,10 +2,35 @@ CHARACTER_HEIGHT = 60
 
 class Character
 {
+
     constructor(x_position, scene)
     {
         this.scene = scene
         this.x_position = x_position
+
+        this.left_leg = new PIXI.Graphics();
+        this.right_leg = new PIXI.Graphics();
+
+        this.key_state = {"1": false, "2": false};
+        window.addEventListener("keydown", this.key_down.bind(this));
+        window.addEventListener("keyup", this.key_up.bind(this));
+    }
+
+    key_down(key)
+    {
+        this.key_state[key.key] = true;
+
+        if (key.key === "1")
+            this.step_one();
+        else if (key.key === "2")
+            this.step_two();
+        console.log(key);
+
+    }
+
+    key_up(key)
+    {
+        this.key_state[key.key] = false;
     }
 
     drow()
@@ -13,23 +38,21 @@ class Character
         this.container = new PIXI.Container()
         graphics_container.addChild(this.container)
 
-        let left_leg = new PIXI.Graphics();
-        this.container.addChild(left_leg);
+        this.container.addChild(this.left_leg);
 
-        left_leg.position.set(0, 40);
-        left_leg.beginFill(0xFF0000);
-        left_leg.drawRect(0, 0, 5, 25);
-        left_leg.endFill();
-        left_leg.rotation = 0.5;
+        this.left_leg.position.set(0, 40);
+        this.left_leg.beginFill(0xFF0000);
+        this.left_leg.drawRect(0, 0, 5, 25);
+        this.left_leg.endFill();
+        this.left_leg.rotation = 0.5;
 
-        let right_leg = new PIXI.Graphics();
-        this.container.addChild(right_leg);
+        this.container.addChild(this.right_leg);
 
-        right_leg.position.set(0, 40);
-        right_leg.beginFill(0xFFFF00);
-        right_leg.drawRect(0, 0, 5, 25);
-        right_leg.endFill();
-        right_leg.rotation = -0.5;
+        this.right_leg.position.set(0, 40);
+        this.right_leg.beginFill(0xFFFF00);
+        this.right_leg.drawRect(0, 0, 5, 25);
+        this.right_leg.endFill();
+        this.right_leg.rotation = -0.5;
 
         let body = new PIXI.Graphics();
         this.container.addChild(body);
@@ -55,6 +78,27 @@ class Character
         head.beginFill(0x0FFFF0);
         head.drawCircle(0, 0, 8);
         head.endFill();
+    }
+
+    step_one()
+    {
+            app.ticker.add((delta) => {
+                if (this.left_leg.rotation > -0.5)
+                    this.left_leg.rotation -= 0.01 * delta;
+                if (this.right_leg.rotation < 0.5)
+                    this.right_leg.rotation += 0.01 * delta;
+            });
+    }
+
+    step_two()
+    {
+        app.ticker.add((delta) => {
+            if (this.left_leg.rotation < 0.5)
+                this.left_leg.rotation += 0.01 * delta;
+            if (this.right_leg.rotation > -0.5)
+                this.right_leg.rotation -= 0.01 * delta;
+        });
+
     }
 
     update()
