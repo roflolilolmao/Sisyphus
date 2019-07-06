@@ -23,9 +23,14 @@ class Character
         this.key_state[key.key] = true;
 
         if (key.key === "1")
-            this.step_one();
+            if (this.left_leg.rotation >= 0.5 || this.right_leg.rotation <= -0.5)
+                app.ticker.add(this.step_one, this)
         else if (key.key === "2")
-            this.step_two();
+            if (this.left_leg.rotation <= 0.5 || this.right_leg.rotation >= -0.5)
+            {
+                console.log("pk tu marches pas")
+                app.ticker.add(this.step_two, this)
+            }
         console.log(key);
 
     }
@@ -82,12 +87,7 @@ class Character
         head.endFill();
     }
 
-    salut(delta, left, right)
-    {
-        console.log("salut")
-    }
-
-    yo(delta)
+    step_one(delta)
     {
         if (this.left_leg.rotation > -0.5)
         {
@@ -95,28 +95,19 @@ class Character
             this.right_leg.rotation += 0.01 * delta;
         }
         else
-        {
-            console.log("bye");
-            app.ticker.remove(this.yo, this)
-        }
+            app.ticker.remove(this.step_one, this)
     }
 
-    step_one()
-    {
-        if (this.left_leg.rotation >= 0.5 || this.left_leg.rotation <= -0.5)
-        {
-            app.ticker.add(this.yo, this)
-        }
-    }
 
-    step_two()
+    step_two(delta)
     {
-        app.ticker.add((delta) => {
-            if (this.left_leg.rotation < 0.5)
-                this.left_leg.rotation += 0.01 * delta;
-            if (this.right_leg.rotation > -0.5)
-                this.right_leg.rotation -= 0.01 * delta;
-        });
+        if (this.left_leg.rotation < 0.5)
+        {
+            this.left_leg.rotation += 0.01 * delta;
+            this.right_leg.rotation -= 0.01 * delta;
+        }
+        else
+            app.ticker.remove(this.step_two, this)
 
     }
 
