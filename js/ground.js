@@ -10,8 +10,6 @@ class Ground
         this.nodes = Array(GROUND_SEGMENTS_COUNT)
             .fill(DEFAULT_GROUND_HEIGHT)
             .map(n => n + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
-        this.graphics = new PIXI.Graphics()
-        app.stage.addChild(this.graphics)
     }
 
     height_at(x_position)
@@ -36,6 +34,8 @@ class Ground
 
     drow()
     {
+        this.graphics = new PIXI.Graphics()
+        app.stage.addChild(this.graphics)
         this.graphics.position.set(0, 0)
 
         this.graphics.lineStyle(1, 0x00ff00)
@@ -49,5 +49,10 @@ class Ground
                     aled.height_at(i))
             }
         )
+    }
+
+    update()
+    {
+        // Nothing here yet
     }
 }
