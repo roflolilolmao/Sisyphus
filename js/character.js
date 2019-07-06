@@ -1,5 +1,7 @@
 CHARACTER_HEIGHT = 60
 
+var yo = null
+
 class Character
 {
 
@@ -80,14 +82,31 @@ class Character
         head.endFill();
     }
 
+    salut(delta, left, right)
+    {
+        console.log("salut")
+    }
+
+    yo(delta)
+    {
+        if (this.left_leg.rotation > -0.5)
+        {
+            this.left_leg.rotation -= 0.01 * delta;
+            this.right_leg.rotation += 0.01 * delta;
+        }
+        else
+        {
+            console.log("bye");
+            app.ticker.remove(this.yo, this)
+        }
+    }
+
     step_one()
     {
-            app.ticker.add((delta) => {
-                if (this.left_leg.rotation > -0.5)
-                    this.left_leg.rotation -= 0.01 * delta;
-                if (this.right_leg.rotation < 0.5)
-                    this.right_leg.rotation += 0.01 * delta;
-            });
+        if (this.left_leg.rotation >= 0.5 || this.left_leg.rotation <= -0.5)
+        {
+            app.ticker.add(this.yo, this)
+        }
     }
 
     step_two()
