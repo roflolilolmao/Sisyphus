@@ -4,21 +4,24 @@ class Rock
 {
     constructor(x_position, scene)
     {
-        this.height = scene.ground_height_at(x_position)
+        this.scene = scene
         this.x_position = x_position
-
-        this.graphics = new PIXI.Graphics()
-        app.stage.addChild(this.graphics)
     }
 
     drow()
     {
-        this.graphics.position.set(0, 0)
+        this.graphics = new PIXI.Graphics()
+        app.stage.addChild(this.graphics)
         this.graphics.beginFill(0xFFFFFFF)
-        this.graphics.drawCircle(
-            this.x_position,
-            this.height - ROCK_RADIUS,
-            ROCK_RADIUS)
+        this.graphics.drawCircle(0, 0, ROCK_RADIUS)
         this.graphics.endFill()
+    }
+
+    update()
+    {
+        this.graphics.position.set(
+            this.scene.screen_position_at(this.x_position),
+            this.scene.height_at(this.x_position) - ROCK_RADIUS
+        )
     }
 }

@@ -3,19 +3,29 @@ class Scene
     constructor()
     {
         this.ground = new Ground()
-        this.character = new Character(60, this)
-        this.rock = new Rock(120, this)
+        this.character = new Character(2, this)
+        this.rock = new Rock(2.5, this)
+
+        this.game_objects = [this.ground, this.character, this.rock]
     }
 
-    ground_height_at(x_position)
+    height_at(x_position)
     {
         return this.ground.height_at(x_position)
     }
 
+    screen_position_at(x_position)
+    {
+        return this.ground.screen_position_at(x_position)
+    }
+
     drow()
     {
-        this.rock.drow()
-        this.character.drow()
-        this.ground.drow()
+        this.game_objects.forEach(go => go.drow())
+    }
+
+    update()
+    {
+        this.game_objects.forEach(go => go.update())
     }
 }

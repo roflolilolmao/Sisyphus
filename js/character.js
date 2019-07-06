@@ -1,16 +1,17 @@
+CHARACTER_HEIGHT = 60
+
 class Character
 {
     constructor(x_position, scene)
     {
-        this.height = scene.ground_height_at(x_position)
+        this.scene = scene
         this.x_position = x_position
-
-        this.container = new PIXI.Container()
-        app.stage.addChild(this.container)
     }
 
     drow()
     {
+        this.container = new PIXI.Container()
+        app.stage.addChild(this.container)
         let left_leg = new PIXI.Graphics();
         this.container.addChild(left_leg);
 
@@ -53,7 +54,18 @@ class Character
         head.beginFill(0x0FFFF0);
         head.drawCircle(0, 0, 8);
         head.endFill();
+    }
 
-        this.container.position.set(60, this.height - this.container.height + 10);
+    update()
+    {
+        this.container.position.set(
+            this.scene.screen_position_at(this.x_position),
+            scene.height_at(this.x_position) - CHARACTER_HEIGHT)
+    }
+
+    move(distance)
+    {
+        this.x_position += distance
+        this.scene.rock.x_position = this.x_position + 0.5
     }
 }
