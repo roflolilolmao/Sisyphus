@@ -35,7 +35,7 @@ class Ground
     drow()
     {
         this.graphics = new PIXI.Graphics()
-        app.stage.addChild(this.graphics)
+        graphics_container.addChild(this.graphics)
         this.graphics.position.set(0, 0)
 
         this.graphics.lineStyle(1, 0x00ff00)

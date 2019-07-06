@@ -11,7 +11,8 @@ class Character
     drow()
     {
         this.container = new PIXI.Container()
-        app.stage.addChild(this.container)
+        graphics_container.addChild(this.container)
+
         let left_leg = new PIXI.Graphics();
         this.container.addChild(left_leg);
 
