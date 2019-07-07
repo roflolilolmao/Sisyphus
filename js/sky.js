@@ -7,11 +7,10 @@ class Sky
             app.screen.width,
             app.screen.height
         )
-        app.stage.addChild(this.sprite)
+        app.stage.addChildAt(this.sprite, 0)
     }
 
     update()
     {
-        this.sprite.tilePosition.x += current_speed() / 4
     }
 }

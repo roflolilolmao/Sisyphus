@@ -1,20 +1,10 @@
-const textures = {
-    'ground': PIXI.Texture.from('https://roflolilolmao.github.io/Sisyphus/assets/images/MountainRepeat.png'),
-    'sky': PIXI.Texture.from('https://roflolilolmao.github.io/Sisyphus/assets/images/MoutainScrollerSkyRepeat.jpg'),
+var textures = {}
+
+function add_texture(name, filename)
+{
+    textures[name] = PIXI.Texture.from(
+        `https://roflolilolmao.github.io/Sisyphus/assets/images/${filename}`)
 }
 
-const brt = new PIXI.BaseRenderTexture(300, 300, PIXI.SCALE_MODES.LINEAR, 1)
-const rt = new PIXI.RenderTexture(brt)
-
-function loadImage(src){
-    if(!src.type.match(/image.*/)){
-        console.log("The dropped file is not an image: ", src.type)
-        return
-    }
-
-    var reader = new FileReader()
-    reader.onload = function(e) {
-        sky = PIXI.Texture.from((e.target.result))
-    }
-    reader.readAsDataURL(src)
-}
+add_texture('ground', 'MountainRepeat.png')
+add_texture('sky', 'MoutainScrollerSkyRepeat.jpg')
