@@ -1,4 +1,5 @@
-const app = new PIXI.Application();
+const app = new PIXI.Application({'resizeTo': window})
+
 const ticker = PIXI.Ticker.shared
 var graphics_container = new PIXI.Container()
 app.stage.addChild(graphics_container)
@@ -32,6 +33,12 @@ window.onload = function () {
     audio = new AudioTracks()
     loadBasicCanvas()
 };
+
+window.onresize = function()
+{
+    app.resizeTo = window
+    app.resize()
+}
 
 function update(delta)
 {
