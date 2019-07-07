@@ -44,16 +44,16 @@ function update(delta)
 {
     function move_camera()
     {
-        function move_property(property, factor=1)
+        function move_property(property, x_factor=1, y_factor=1)
         {
             property.set(
-                -scene.character.container.position.x * factor + CAMERA_OFFSET_X,
-                -scene.character.container.position.y * factor + CAMERA_OFFSET_Y,
+                (-scene.character.container.position.x + CAMERA_OFFSET_X) * x_factor,
+                (-scene.character.container.position.y + CAMERA_OFFSET_Y) * y_factor,
             )
         }
         move_property(graphics_container.position)
         move_property(scene.ground.sprite.tilePosition)
-        move_property(scene.sky.sprite.tilePosition, 1 / 4)
+        move_property(scene.sky.sprite.tilePosition, 1 / 4, 0)
     }
 
     move_camera()
