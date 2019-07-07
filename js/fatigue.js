@@ -20,7 +20,6 @@ class Fatigue
     {
         let mateub = Math.min(this.character.fatigue, MAX_FATIGUE) * 2
         let mabite = Math.min(this.character.fatigue + amount, MAX_FATIGUE) * 2
-        console.log(mabite, mateub)
 
         let boom = new PIXI.Graphics()
         boom.beginFill(0xff0000)

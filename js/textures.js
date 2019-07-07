@@ -2,7 +2,6 @@ var textures = {}
 
 function add_texture(name, filename)
 {
-    console.log(name, filename)
     textures[name] = PIXI.Texture.from(assets_path(`images/${filename}`))
 }
 

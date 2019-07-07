@@ -19,7 +19,6 @@ function tick_refresher()
 function call_functions(arg)
 {
     let index = expected_keys[0].indexOf(arg.key);
-    tick_refresher()
 
     if (index === -1)
     {
