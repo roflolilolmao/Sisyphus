@@ -1,4 +1,4 @@
-CHARACTER_HEIGHT = 40
+CHARACTER_HEIGHT = 50
 
 class Character
 {
@@ -12,7 +12,7 @@ class Character
         this.right_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg02.png');
         this.head = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterHead.png');
 
-        this.key_state = {"1": false, "2": false, "3":false};
+        this.key_state = {STEP_1_KEY: false, STEP_2_KEY: false, STEP_3_KEY:false};
         window.addEventListener("keydown", this.key_down.bind(this));
         window.addEventListener("keyup", this.key_up.bind(this));
     }
@@ -21,19 +21,21 @@ class Character
     {
         this.key_state[key.key] = true;
 
-        if (key.key === "1") {
+        if (key.key === STEP_1_KEY)
+        {
             if (this.left_leg.rotation >= 0.3)
                 app.ticker.add(this.step_one, this)
         }
 
-        if (key.key === "2")
+        if (key.key === STEP_2_KEY)
         {
             if (this.left_leg.rotation <= 0.3)
                 app.ticker.add(this.step_two, this)
         }
-        if (key.key === "3")
+        if (key.key === STEP_3_KEY)
+        {
             app.ticker.add(this.head_butt_down, this)
-
+        }
     }
 
     key_up(key)
@@ -87,7 +89,10 @@ class Character
     head_butt_down(delta)
     {
         if (this.head.rotation <= 0.5)
+        {
+            this.move(0.01 * delta)
             this.head.rotation += 0.06 * delta
+        }
         else
         {
             app.ticker.remove(this.head_butt_down, this)
@@ -99,6 +104,7 @@ class Character
     {
         if (this.left_leg.rotation >= -0.3)
         {
+            this.move(0.01 * delta)
             this.left_leg.rotation -= 0.02 * delta;
             this.right_leg.rotation += 0.02 * delta;
         }
@@ -111,6 +117,7 @@ class Character
     {
         if (this.left_leg.rotation < 0.3)
         {
+            this.move(0.01 * delta)
             this.left_leg.rotation += 0.02 * delta;
             this.right_leg.rotation -= 0.02 * delta;
         }

@@ -7,6 +7,10 @@ const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
 const START_BPM = 40
 
+const STEP_1_KEY = "f"
+const STEP_2_KEY = "j"
+const STEP_3_KEY = "e"
+
 let scene = null
 let audio = null;
 let audio2 = null
@@ -47,7 +51,6 @@ function update(delta)
 
     current_bpm += 60 / 3 * delta / 1000
     move_camera()
-    scene.character.move(current_speed() * delta / 1000)
     audio.calculate_playback_speed()
     audio.set_playback_speed()
     scene.update()
