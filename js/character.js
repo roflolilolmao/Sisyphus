@@ -70,9 +70,8 @@ class Character
 
     head_bobble()
     {
-        let current_animation_time = beat_duration() - this.remaining_time
+        let current_animation_time = beat_duration() - time_to_next_beat
         this.character.head.rotation = BASE_HEAD_BOBBLE_RETARDNESS - Math.sin(Math.PI / beat_duration() * current_animation_time) * HEAD_BOBBLE_AMPLITUDE
-        this.remaining_time -= ticker.deltaMS
         if (this.remaining_time <= 0)
             this.remaining_time = beat_duration();
     }
