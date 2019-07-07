@@ -2,11 +2,12 @@ class Scene
 {
     constructor()
     {
+        this.sky = new Sky()
         this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(2.5, this)
 
-        this.game_objects = [this.ground, this.character, this.rock]
+        this.game_objects = [this.sky, this.ground, this.character, this.rock]
     }
 
     height_at(x_position)

@@ -17,8 +17,33 @@ class Ground
     {
         this.scene = scene
         this.nodes = []
+        this.sky_mask = new PIXI.Container()
+
         for(let i = 0; i < PRELOADED_SEGMENTS; i++)
-            _add_segment(this.nodes)
+            this.add_segment(this.nodes)
+    }
+
+    add_segment()
+    {
+        let n = this.nodes.length
+        let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / 4)
+        this.nodes.push(
+            -(n - PRELOADED_SEGMENTS) * current_slope
+            + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE
+        )
+
+        let left = (n - 2) * GROUND_SEGMENTS_LENGTH
+        let right = (n - 1) * GROUND_SEGMENTS_LENGTH
+
+        let mask_piece = new PIXI.Graphics()
+        this.sky_mask.addChild(mask_piece)
+        mask_piece.beginFill(0xFF0000)
+        mask_piece.drawPolygon([
+            new PIXI.Point(left, 2000),
+            new PIXI.Point(right, 2000),
+            new PIXI.Point(right, this.height_at(n - 1)),
+            new PIXI.Point(left, this.height_at(n - 2))
+        ])
     }
 
     height_at(x_position)
@@ -31,8 +56,8 @@ class Ground
 
         let floating_part = x_position - Math.floor(x_position)
         return (
-            this.nodes[Math.floor(x_position)] * (1 - floating_part) +
-            this.nodes[Math.ceil(x_position)] * floating_part
+            this.nodes[Math.floor(x_position)] * (1 - floating_part)
+            + this.nodes[Math.ceil(x_position)] * floating_part
         )
     }
 
@@ -43,21 +68,14 @@ class Ground
 
     drow()
     {
-        this.graphics = new PIXI.Graphics()
-        graphics_container.addChild(this.graphics)
-        this.graphics.position.set(0, 0)
-
-        this.graphics.lineStyle(5, 0x00ff00)
-            .moveTo(0, this.height_at(0))
-        let aled = this
-        this.nodes.forEach(
-            function(n, i)
-            {
-                aled.graphics.lineTo(
-                    i * GROUND_SEGMENTS_LENGTH,
-                    aled.height_at(i))
-            }
+        graphics_container.addChild(this.sky_mask)
+        this.sprite = new PIXI.TilingSprite(
+            textures.ground,
+            app.screen.width,
+            app.screen.height
         )
+        this.sprite.mask = this.sky_mask
+        app.stage.addChildAt(this.sprite, 1)
     }
 
     update()
@@ -65,10 +83,6 @@ class Ground
         if (this.scene.character.x_position < this.nodes.length - PRELOADED_SEGMENTS)
             return
 
-        _add_segment(this.nodes)
-        let n = this.nodes.length - 1
-        this.graphics
-            .moveTo((n - 1) * GROUND_SEGMENTS_LENGTH, this.height_at(n - 1))
-            .lineTo(n * GROUND_SEGMENTS_LENGTH, this.height_at(n))
+        this.add_segment(this.nodes)
     }
 }

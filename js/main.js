@@ -26,10 +26,16 @@ function update(delta)
 {
     function move_camera()
     {
-        graphics_container.position.set(
-            -scene.character.container.position.x + CAMERA_OFFSET_X,
-            -scene.character.container.position.y + CAMERA_OFFSET_Y,
-        )
+        function move_property(property, factor=1)
+        {
+            property.set(
+                -scene.character.container.position.x * factor + CAMERA_OFFSET_X,
+                -scene.character.container.position.y * factor + CAMERA_OFFSET_Y,
+            )
+        }
+        move_property(graphics_container.position)
+        move_property(scene.ground.sprite.tilePosition)
+        move_property(scene.sky.sprite.tilePosition, 1 / 4)
     }
 
     current_bpm += 60 / 3 * delta / 1000
