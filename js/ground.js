@@ -42,7 +42,7 @@ class Ground
         ])
 
         this.scene.vegetation.add_plants(this)
-        this.scene.lines.add_line(left_point, right_point)
+        // this.scene.lines.add_line(left_point, right_point)
     }
 
     random_x_on_last_segment()
