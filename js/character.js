@@ -1,6 +1,4 @@
-CHARACTER_HEIGHT = 60
-
-var yo = null
+CHARACTER_HEIGHT = 50
 
 class Character
 {
@@ -10,10 +8,11 @@ class Character
         this.scene = scene
         this.x_position = x_position
 
-        this.left_leg = new PIXI.Graphics();
-        this.right_leg = new PIXI.Graphics();
+        this.left_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg01.png');
+        this.right_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg02.png');
+        this.head = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterHead.png');
 
-        this.key_state = {"1": false, "2": false};
+        this.key_state = {"1": false, "2": false, "3":false};
         window.addEventListener("keydown", this.key_down.bind(this));
         window.addEventListener("keyup", this.key_up.bind(this));
     }
@@ -23,14 +22,18 @@ class Character
         this.key_state[key.key] = true;
 
         if (key.key === "1") {
-            if (this.left_leg.rotation >= 0.5)
+            if (this.left_leg.rotation >= 0.3)
                 app.ticker.add(this.step_one, this)
         }
 
         if (key.key === "2")
         {
-            if (this.left_leg.rotation <= 0.5)
+            if (this.left_leg.rotation <= 0.3)
                 app.ticker.add(this.step_two, this)
+        }
+        if (key.key === "3")
+        {
+            app.ticker.add(this.head_butt_down, this)
         }
 
     }
@@ -47,52 +50,58 @@ class Character
 
         this.container.addChild(this.left_leg);
 
-        this.left_leg.position.set(0, 40);
-        this.left_leg.beginFill(0xFF0000);
-        this.left_leg.drawRect(0, 0, 5, 25);
-        this.left_leg.endFill();
-        this.left_leg.rotation = 0.5;
+        this.left_leg.position.set(-175, -10);
+        this.left_leg.scale.x = 0.2;
+        this.left_leg.scale.y = 0.2;
+        this.left_leg.rotation = 0.3;
 
         this.container.addChild(this.right_leg);
 
-        this.right_leg.position.set(0, 40);
-        this.right_leg.beginFill(0xFFFF00);
-        this.right_leg.drawRect(0, 0, 5, 25);
-        this.right_leg.endFill();
-        this.right_leg.rotation = -0.5;
+        this.right_leg.position.set(-165, -5);
+        this.right_leg.scale.x = 0.2;
+        this.right_leg.scale.y = 0.2;
+        this.right_leg.rotation = -0.3;
 
-        let body = new PIXI.Graphics();
+        let body = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterBody.png');
         this.container.addChild(body);
 
-        body.position.set(0, 5);
-        body.beginFill(0x00FF00);
-        body.drawRect(0, 0, 5, 35);
-        body.endFill();
+        body.position.set(-200, -45);
+        body.scale.x = 0.2;
+        body.scale.y = 0.2;
 
-        let arms = new PIXI.Graphics();
-        this.container.addChild(arms);
+        this.container.addChild(this.head);
 
-        arms.position.set(0, 15);
-        arms.beginFill(0x0000FF);
-        arms.drawRect(0, 0, 5, 20);
-        arms.endFill();
-        arms.rotation = -1.8;
+        this.head.position.set(-160, -35);
+        this.head.anchor.set(0.1, 0.8);
+        this.head.scale.x = 0.2;
+        this.head.scale.y = 0.2;
+    }
 
-        let head = new PIXI.Graphics();
-        this.container.addChild(head);
+    head_butt_up(delta)
+    {
+        if (this.head.rotation >= 0)
+            this.head.rotation -= 0.03 * delta
+        else
+            app.ticker.remove(this.head_butt_up, this)
+    }
 
-        head.position.set(0, 0);
-        head.beginFill(0x0FFFF0);
-        head.drawCircle(0, 0, 8);
-        head.endFill();
+    head_butt_down(delta)
+    {
+        if (this.head.rotation <= 0.5)
+            this.head.rotation += 0.06 * delta
+        else
+        {
+            app.ticker.remove(this.head_butt_down, this)
+            app.ticker.add(this.head_butt_up, this)
+        }
     }
 
     step_one(delta)
     {
-        if (this.left_leg.rotation >= -0.5)
+        if (this.left_leg.rotation >= -0.3)
         {
-            this.left_leg.rotation -= 0.01 * delta;
-            this.right_leg.rotation += 0.01 * delta;
+            this.left_leg.rotation -= 0.02 * delta;
+            this.right_leg.rotation += 0.02 * delta;
         }
         else
             app.ticker.remove(this.step_one, this)
@@ -101,10 +110,10 @@ class Character
 
     step_two(delta)
     {
-        if (this.left_leg.rotation < 0.5)
+        if (this.left_leg.rotation < 0.3)
         {
-            this.left_leg.rotation += 0.01 * delta;
-            this.right_leg.rotation -= 0.01 * delta;
+            this.left_leg.rotation += 0.02 * delta;
+            this.right_leg.rotation -= 0.02 * delta;
         }
         else
             app.ticker.remove(this.step_two, this)
