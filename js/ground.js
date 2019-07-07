@@ -4,13 +4,6 @@ const GROUND_NOISE = 10
 const DEFAULT_GROUND_HEIGHT = app.screen.height / 3 * 2
 const PRELOADED_SEGMENTS = 8
 
-function _add_segment(nodes)
-{
-    let n = nodes.length
-    let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / 4)
-    nodes.push(-(n - PRELOADED_SEGMENTS) * current_slope + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE)
-}
-
 class Ground
 {
     constructor(scene)
@@ -26,7 +19,7 @@ class Ground
     add_segment()
     {
         let n = this.nodes.length
-        let current_slope = (current_bpm - 80) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / 4)
+        let current_slope = (current_bpm - START_BPM) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / 4)
         this.nodes.push(
             -(n - PRELOADED_SEGMENTS) * current_slope
             + Math.random() * 2 * GROUND_NOISE - GROUND_NOISE
