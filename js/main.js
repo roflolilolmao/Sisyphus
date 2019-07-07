@@ -9,7 +9,7 @@ const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
 let scene = null
 let audio = null;
 let audio2 = null
-var current_bpm = 80
+var current_bpm = 40
 
 function current_speed()
 {
@@ -55,8 +55,7 @@ function loadBasicCanvas()
 
 function play_all_tracks()
 {
-    audio.tracks[audio.current_track].forEach((elem) => {
-        elem.currentTime = 0;
+    audio.tracks.forEach((elem) => {
         elem.play();
     })
 }
