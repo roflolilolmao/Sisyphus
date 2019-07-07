@@ -38,9 +38,9 @@ class Key
     {
         this.container.position.set(
             scene.screen_position_at(this.x_position),
-            scene.height_at(this.x_position) + this.y
+            scene.ground.height_at(this.x_position) + this.y
         )
-        if (this.x_position < scene.character.x_position)
+        if (this.x_position + 0.5 < scene.character.x_position)
             graphics_container.removeChild(this.container);
     }
 }

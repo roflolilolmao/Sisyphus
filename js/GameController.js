@@ -58,9 +58,13 @@ function queue_keys(keys)
 {
     expected_keys.push(keys)
     keys.forEach((elem, counter) => {
-        scene.game_objects.push(new Key(6 * expected_keys.length, counter * 40, elem))
+        let new_key = new Key(
+            6 * (expected_keys.length - 1) + scene.character.x_position,
+            0,
+            elem)
+        new_key.drow()
+        new_key.update()
     })
-    scene.update()
 }
 
 function step_left()
@@ -80,7 +84,7 @@ function step_right()
         'remaining_time': beat_duration(),
         'animation': scene.character.animate_step_right
     });
-    queue_keys(["j"])
+    queue_keys(["f"])
 }
 
 window.addEventListener("keydown", call_functions.bind(this))
