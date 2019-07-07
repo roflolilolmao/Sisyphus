@@ -5,7 +5,7 @@ const KEYS =
     }
 
 var time_to_next_beat = 0;
-var expected_keys = ["f"]
+var expected_keys = [["f"],["j"],["f"],["j"],["f"]]
 
 ticker.add(tick_refresher)
 
@@ -21,20 +21,21 @@ function tick_refresher()
 
 function call_functions(arg)
 {
-    let index = expected_keys.indexOf(arg.key);
+    let index = expected_keys[0].indexOf(arg.key);
     if (time_to_next_beat > 0.15 * beat_duration() || time_to_next_beat - beat_duration() > beat_duration() * 0.15 || index === -1)
     {
         console.log("blargh")
         return
     }
-    expected_keys.splice(index, 1)
-    if (expected_keys.length !== 0)
+    expected_keys[0].splice(index, 1)
+    if (expected_keys[0].length !== 0)
         return ;
     current_bpm += 1
     time_to_next_beat += beat_duration()
     try
     {
         KEYS[arg.key]()
+        expected_keys.shift()
     }
     catch
     {
@@ -60,7 +61,7 @@ function step_left()
         'remaining_time': beat_duration(),
         'animation': scene.character.animate_step_left
     });
-    expected_keys = ["j"]
+    expected_keys.push(["j"])
 }
 
 function step_right()
@@ -70,7 +71,7 @@ function step_right()
         'remaining_time': beat_duration(),
         'animation': scene.character.animate_step_right
     });
-    expected_keys = ["f"]
+    expected_keys.push(["f"])
 }
 
 window.addEventListener("keydown", call_functions.bind(this))
