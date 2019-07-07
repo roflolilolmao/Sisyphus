@@ -28,8 +28,8 @@ function call_functions(arg)
     }
 
     let relative_difference = Math.abs((time_to_next_beat - beat_duration()) / beat_duration())
-    let absolute_difference = Math.abs((time_to_next_beat - beat_duration())
-    if(relative_difference > 0.15 || absolute_difference > 150)
+    let absolute_difference = Math.abs(time_to_next_beat - beat_duration())
+    if(relative_difference > 0.15 && absolute_difference > 150)
     {
         scene.character.increment_fatigue(relative_difference)
         return
