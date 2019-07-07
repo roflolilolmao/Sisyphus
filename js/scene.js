@@ -8,6 +8,7 @@ class Scene
         this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(3, this)
+        this.fatigue = new Fatigue(this.character)
 
         this.game_objects = [
             this.sky,
@@ -15,7 +16,8 @@ class Scene
             // this.lines,
             this.character,
             this.rock,
-            this.vegetation
+            this.vegetation,
+            this.fatigue
          ]
         expected_keys.forEach((elem, counter) => {
             this.game_objects.push(new Key(this.character.x_position + 6 * counter, 0, elem))

@@ -5,17 +5,29 @@ const BASE_HEAD_BOBBLE_RETARDNESS = 0.4
 const HEAD_BOBBLE_AMPLITUDE = 0.3
 const LEG_AMPLITUDE = BASE_LEFT_LEG_ROTATION - BASE_RIGHT_LEG_ROTATION
 
+const MAX_FATIGUE = 100
+
 class Character
 {
 
     constructor(x_position, scene)
     {
+        this.fatigue = 0
+
         this.scene = scene
         this.x_position = x_position
 
         this.left_leg = new PIXI.Sprite.from(textures.left_leg);
         this.right_leg = new PIXI.Sprite.from(textures.right_leg);
         this.head = new PIXI.Sprite.from(textures.head);
+    }
+
+    increment_fatigue(amount)
+    {
+        this.scene.fatigue.damage(amount)
+        this.fatigue += amount
+        if (this.fatigue >= MAX_FATIGUE)
+            game_over()
     }
 
     drow()

@@ -20,10 +20,21 @@ function call_functions(arg)
 {
     let index = expected_keys[0].indexOf(arg.key);
     tick_refresher()
-    if (time_to_next_beat > 0.25 * beat_duration() + 150 || time_to_next_beat - beat_duration() > beat_duration() * 0.25 + 150 || index === -1)
+
+    if (index === -1)
     {
+        scene.character.increment_fatigue(20 + Math.random() * 10)
         return
     }
+
+    let relative_difference = Math.abs((time_to_next_beat - beat_duration()) / beat_duration())
+    let absolute_difference = Math.abs((time_to_next_beat - beat_duration())
+    if(relative_difference > 0.15 || absolute_difference > 150)
+    {
+        scene.character.increment_fatigue(relative_difference)
+        return
+    }
+    
     expected_keys[0].splice(index, 1)
     if (expected_keys[0].length !== 0)
         return ;
