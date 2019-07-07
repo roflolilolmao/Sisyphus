@@ -8,17 +8,17 @@ class Scene
         this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(2.5, this)
-        this.key = new Key(this.character.x_position + 5, this)
-
         this.game_objects = [
             this.sky,
             this.ground,
             // this.lines,
             this.character,
             this.rock,
-            this.vegetation,
-            this.key
-        ]
+            this.vegetation
+         ]
+        expected_keys.forEach((elem, counter) => {
+            this.game_objects.push(new Key(this.character.x_position + 6 * counter, 0, elem))
+        })
     }
 
     height_at(x_position)

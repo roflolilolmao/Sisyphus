@@ -54,6 +54,15 @@ function move_character_for_a_beat(delta)
         ticker.remove(move_character_for_a_beat, this)
 }
 
+function queue_keys(keys)
+{
+    expected_keys.push(keys)
+    keys.forEach((elem, counter) => {
+        scene.game_objects.push(new Key(6 * expected_keys.length, counter * 40, elem))
+    })
+    scene.update()
+}
+
 function step_left()
 {
     ticker.add(move_character_for_a_beat, {
@@ -61,7 +70,7 @@ function step_left()
         'remaining_time': beat_duration(),
         'animation': scene.character.animate_step_left
     });
-    expected_keys.push(["j"])
+    queue_keys(["j"])
 }
 
 function step_right()
@@ -71,7 +80,7 @@ function step_right()
         'remaining_time': beat_duration(),
         'animation': scene.character.animate_step_right
     });
-    expected_keys.push(["f"])
+    queue_keys(["j"])
 }
 
 window.addEventListener("keydown", call_functions.bind(this))

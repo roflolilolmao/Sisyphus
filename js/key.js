@@ -3,11 +3,11 @@ const KEY_RADIUS = 5
 
 class Key
 {
-    constructor(x_position, scene)
+    constructor(x_position, y, char)
     {
-        this.scene = scene
         this.x_position = x_position
-        this.key_to_print = "F"
+        this.key_to_print = char
+        this.y = y
     }
 
     drow()
@@ -37,8 +37,8 @@ class Key
     update()
     {
         this.container.position.set(
-            this.scene.screen_position_at(this.x_position),
-            this.scene.height_at(this.x_position)
+            scene.screen_position_at(this.x_position),
+            scene.height_at(this.x_position) + this.y
         )
         if (this.x_position < scene.character.x_position)
             graphics_container.removeChild(this.container);
