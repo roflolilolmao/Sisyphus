@@ -8,11 +8,11 @@ class Key
         this.x_position = x_position
         this.key_to_print = char
         this.y = y
+        this.container = new PIXI.Container()
     }
 
     drow()
     {
-        this.container = new PIXI.Container()
         graphics_container.addChild(this.container)
 
         this.rect = new PIXI.Graphics();
