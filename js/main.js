@@ -22,12 +22,38 @@ function start_game(event)
     stopped = false
 }
 
+function animate_game_over()
+{
+    this.time -= ticker.deltaMS
+    document.getElementById('game_over') .style.opacity = '' + (1000 - this.time) / 1000
+    if (this.time <= 0)
+    {
+        reset_game()
+        setTimeout(function() { document.getElementById('game_over').display = 'none' }, 5000)
+        ticker.remove(animate_game_over, this)
+    }
+}
+
+function tumblefuck_rock()
+{
+    scene.rock.x_position -= 0.1
+}
+
 function game_over()
 {
     stopped = true
+    ticker.add(tumblefuck_rock, null)
+    setTimeout(function() {
+        display_game_over()
+        ticker.remove(tumblefuck_rock, null)
+    }, 5000)
+}
+
+function display_game_over()
+{
     document.getElementById('game_over') .style.display = 'block'
-    document.getElementById('score') .innerHTML = '1232'
-    console.log('mabite')
+    document.getElementById('score') .innerHTML = '' + -scene.ground.height_at(scene.character.x_position) / GROUND_SEGMENTS_LENGTH
+    ticker.add(animate_game_over, {'time': 1000})
 }
 
 function assets_path(filename)
