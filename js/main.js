@@ -8,13 +8,8 @@ const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
 const START_BPM = 40
 
-const STEP_1_KEY = "f"
-const STEP_2_KEY = "j"
-const STEP_3_KEY = "e"
-
 let scene = null
-let audio = null;
-let audio2 = null
+let audio = null
 var current_bpm = START_BPM
 
 function assets_path(filename)
@@ -25,6 +20,11 @@ function assets_path(filename)
 function current_speed()
 {
     return current_bpm * 0.1
+}
+
+function beat_duration()
+{
+    return 60 / current_bpm * 1000
 }
 
 window.onload = function () {
@@ -56,7 +56,6 @@ function update(delta)
         move_property(scene.sky.sprite.tilePosition, 1 / 4)
     }
 
-    current_bpm += 60 / 3 * delta / 1000
     move_camera()
     audio.calculate_playback_speed()
     audio.set_playback_speed()

@@ -1,4 +1,9 @@
-CHARACTER_HEIGHT = 50
+const CHARACTER_HEIGHT = 50
+const BASE_RIGHT_LEG_ROTATION = -0.3
+const BASE_LEFT_LEG_ROTATION = 0.3
+const BASE_HEAD_BOBBLE_RETARDNESS = 0.4
+const HEAD_BOBBLE_AMPLITUDE = 0.3
+const LEG_AMPLITUDE = BASE_LEFT_LEG_ROTATION - BASE_RIGHT_LEG_ROTATION
 
 class Character
 {
@@ -11,36 +16,6 @@ class Character
         this.left_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg01.png');
         this.right_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg02.png');
         this.head = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterHead.png');
-
-        this.key_state = {STEP_1_KEY: false, STEP_2_KEY: false, STEP_3_KEY:false};
-        window.addEventListener("keydown", this.key_down.bind(this));
-        window.addEventListener("keyup", this.key_up.bind(this));
-    }
-
-    key_down(key)
-    {
-        this.key_state[key.key] = true;
-
-        if (key.key === STEP_1_KEY)
-        {
-            if (this.left_leg.rotation >= 0.3)
-                app.ticker.add(this.step_one, this)
-        }
-
-        if (key.key === STEP_2_KEY)
-        {
-            if (this.left_leg.rotation <= 0.3)
-                app.ticker.add(this.step_two, this)
-        }
-        if (key.key === STEP_3_KEY)
-        {
-            app.ticker.add(this.head_butt_down, this)
-        }
-    }
-
-    key_up(key)
-    {
-        this.key_state[key.key] = false;
     }
 
     drow()
@@ -53,14 +28,14 @@ class Character
         this.left_leg.position.set(-35, -15);
         this.left_leg.scale.x = 0.2;
         this.left_leg.scale.y = 0.2;
-        this.left_leg.rotation = 0.3;
+        this.left_leg.rotation = BASE_LEFT_LEG_ROTATION
 
         this.container.addChild(this.right_leg);
 
         this.right_leg.position.set(-25, -10);
         this.right_leg.scale.x = 0.2;
         this.right_leg.scale.y = 0.2;
-        this.right_leg.rotation = -0.3;
+        this.right_leg.rotation = BASE_RIGHT_LEG_ROTATION;
 
         let body = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterBody.png');
         this.container.addChild(body);
@@ -75,66 +50,31 @@ class Character
         this.head.anchor.set(0.1, 0.8);
         this.head.scale.x = 0.2;
         this.head.scale.y = 0.2;
-        this.head_bobble();
+        ticker.add(this.head_bobble, {'character': this, 'remaining_time': beat_duration()})
     }
 
-    head_butt_up(delta)
+    animate_step_left()
     {
-        if (this.head.rotation >= 0)
-            this.head.rotation -= 0.03 * delta
-        else
-            app.ticker.remove(this.head_butt_up, this)
-    }
-
-    head_butt_down(delta)
-    {
-        if (this.head.rotation <= 0.5)
-        {
-            this.move(0.01 * delta)
-            this.head.rotation += 0.06 * delta
-        }
-        else
-        {
-            app.ticker.remove(this.head_butt_down, this)
-            app.ticker.add(this.head_butt_up, this)
-        }
-    }
-
-    step_one(delta)
-    {
-        if (this.left_leg.rotation >= -0.3)
-        {
-            this.move(0.01 * delta)
-            this.left_leg.rotation -= 0.02 * delta;
-            this.right_leg.rotation += 0.02 * delta;
-        }
-        else
-            app.ticker.remove(this.step_one, this)
+        let current_animation_time = beat_duration() - this.remaining_time
+        this.character.left_leg.rotation = BASE_RIGHT_LEG_ROTATION + current_animation_time / beat_duration() * LEG_AMPLITUDE
+        this.character.right_leg.rotation = BASE_LEFT_LEG_ROTATION - current_animation_time / beat_duration() * LEG_AMPLITUDE
     }
 
 
-    step_two(delta)
+    animate_step_right()
     {
-        if (this.left_leg.rotation < 0.3)
-        {
-            this.move(0.01 * delta)
-            this.left_leg.rotation += 0.02 * delta;
-            this.right_leg.rotation -= 0.02 * delta;
-        }
-        else
-            app.ticker.remove(this.step_two, this)
-
+        let current_animation_time = beat_duration() - this.remaining_time
+        this.character.left_leg.rotation = BASE_LEFT_LEG_ROTATION - current_animation_time / beat_duration() * LEG_AMPLITUDE
+        this.character.right_leg.rotation = BASE_RIGHT_LEG_ROTATION + current_animation_time / beat_duration() * LEG_AMPLITUDE
     }
 
     head_bobble()
     {
-        let direction = 0.005
-
-        app.ticker.add((delta) => {
-            if (this.head.rotation >= 0.1 || this.head.rotation <= -0.1)
-                direction *= -1;
-            this.head.rotation += direction * delta
-        })
+        let current_animation_time = beat_duration() - this.remaining_time
+        this.character.head.rotation = BASE_HEAD_BOBBLE_RETARDNESS - Math.sin(Math.PI / beat_duration() * current_animation_time) * HEAD_BOBBLE_AMPLITUDE
+        this.remaining_time -= ticker.deltaMS
+        if (this.remaining_time <= 0)
+            this.remaining_time = beat_duration();
     }
 
     update()
@@ -143,6 +83,7 @@ class Character
             this.scene.screen_position_at(this.x_position),
             scene.height_at(this.x_position) - CHARACTER_HEIGHT)
     }
+
 
     move(distance)
     {
