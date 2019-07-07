@@ -75,6 +75,7 @@ class Character
         this.head.anchor.set(0.1, 0.8);
         this.head.scale.x = 0.2;
         this.head.scale.y = 0.2;
+        this.head_bobble();
     }
 
     head_butt_up(delta)
@@ -118,6 +119,17 @@ class Character
         else
             app.ticker.remove(this.step_two, this)
 
+    }
+
+    head_bobble()
+    {
+        let direction = 0.005
+
+        app.ticker.add((delta) => {
+            if (this.head.rotation >= 0.1 || this.head.rotation <= -0.1)
+                direction *= -1;
+            this.head.rotation += direction
+        })
     }
 
     update()
