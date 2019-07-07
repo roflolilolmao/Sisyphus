@@ -4,7 +4,7 @@ class Scene
     {
         this.sky = new Sky()
         this.vegetation = new Vegetation(this)
-        this.lines = new Lines(this)
+        // this.lines = new Lines(this)
         this.ground = new Ground(this)
         this.character = new Character(2, this)
         this.rock = new Rock(2.5, this)
@@ -13,7 +13,7 @@ class Scene
         this.game_objects = [
             this.sky,
             this.ground,
-            this.lines,
+            // this.lines,
             this.character,
             this.rock,
             this.vegetation,
