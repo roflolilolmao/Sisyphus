@@ -12,6 +12,11 @@ let audio = null;
 let audio2 = null
 var current_bpm = START_BPM
 
+function assets_path(filename)
+{
+    return `https://roflolilolmao.github.io/Sisyphus/assets/${filename}`
+}
+
 function current_speed()
 {
     return current_bpm * 0.1

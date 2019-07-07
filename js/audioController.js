@@ -1,9 +1,9 @@
 const tracksURLs = [
-    "assets/tracks/drums_base.wav",
-    "assets/tracks/guitar_palm_muted.wav",
-    "assets/tracks/basse_nappe.wav",
-    "assets/tracks/violins_arpeggios.wav"
-];
+    'drums_base.wav',
+    'guitar_palm_muted.wav',
+    'basse_nappe.wav',
+    'violins_arpeggios.wav'
+].map(n => assets_path(`tracks/${n}`))
 
 class AudioTracks
 {
