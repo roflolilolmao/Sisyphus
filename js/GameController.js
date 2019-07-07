@@ -56,8 +56,8 @@ function queue_keys(keys)
 {
     expected_keys.push(keys)
     keys.forEach((elem, counter) => {
-        let new_key = new Key(
-            6 * (expected_keys.length - 1) + scene.character.x_position,
+       let new_key = new Key(
+            6 * (counter + 1) + scene.character.x_position,
             0,
             elem)
         new_key.drow()
