@@ -10,6 +10,7 @@ const START_BPM = 82
 
 let scene = null
 let audio = null
+let stopped = false
 var current_bpm = START_BPM
 
 function start_game(event)
@@ -18,6 +19,15 @@ function start_game(event)
     loadBasicCanvas()
     play_all_tracks()
     ticker.add(tick_refresher)
+    stopped = false
+}
+
+function game_over()
+{
+    stopped = true
+    document.getElementById('game_over') .style.display = 'block'
+    document.getElementById('score') .innerHTML = '1232'
+    console.log('mabite')
 }
 
 function assets_path(filename)
@@ -35,11 +45,15 @@ function beat_duration()
     return 60 / current_bpm * 1000
 }
 
+function create_scene()
+{
+    scene = new Scene()
+}
+
 window.onload = function () {
     document.getElementById('pixi_container').appendChild(app.view);
-    scene = new Scene()
     audio = new AudioTracks()
-
+    create_scene()
 };
 
 window.onresize = function()

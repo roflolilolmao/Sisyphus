@@ -21,6 +21,15 @@
 </head>
 <body>
     <main id="pixi_container">
+        <div id="game_over" style="
+                display: none;
+                background-color: black;
+                width: 100%;
+                position: absolute;
+                color: cyan;
+                height: 100%;
+                margin: 0;
+        "><h1>Game over</h1><p>You went up to <span id="score"></span> meters!</p></div>
         <button id="play_btn" onclick="start_game(event)" style="
                 display: none;
                 width: 100%;
