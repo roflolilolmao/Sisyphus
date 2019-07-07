@@ -24,7 +24,8 @@ class AudioTracks
 
     calculate_playback_speed()
     {
-        this.playback_speed = (80 / 100 * current_bpm) / 100;
+        this.playback_speed = (100 / 82 * current_bpm) / 100;
+        console.log(this.playback_speed)
     }
 
     set_playback_speed()

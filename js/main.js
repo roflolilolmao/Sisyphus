@@ -6,11 +6,19 @@ app.stage.addChild(graphics_container)
 
 const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
-const START_BPM = 40
+const START_BPM = 41
 
 let scene = null
 let audio = null
 var current_bpm = START_BPM
+
+function start_game(event)
+{
+    event.target.style = "display:none";
+    loadBasicCanvas()
+    play_all_tracks()
+    ticker.add(tick_refresher)
+}
 
 function assets_path(filename)
 {
@@ -31,7 +39,7 @@ window.onload = function () {
     document.getElementById('pixi_container').appendChild(app.view);
     scene = new Scene()
     audio = new AudioTracks()
-    loadBasicCanvas()
+
 };
 
 window.onresize = function()

@@ -7,8 +7,6 @@ const KEYS =
 var time_to_next_beat = 0;
 var expected_keys = [["f"],["j"],["f"],["j"],["f"]]
 
-ticker.add(tick_refresher)
-
 function tick_refresher()
 {
     time_to_next_beat -= ticker.deltaMS
