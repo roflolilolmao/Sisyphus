@@ -87,7 +87,7 @@ class Character
     move(distance)
     {
         this.x_position += distance
-        this.scene.rock.x_position = this.x_position + 1
+        this.scene.rock.x_position = this.x_position + (ROCK_RADIUS + this.container.width / 2) / GROUND_SEGMENTS_LENGTH
         scene.rock.graphics.rotation += 0.1
     }
 }

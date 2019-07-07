@@ -35,6 +35,7 @@ class Scene
     drow()
     {
         this.game_objects.forEach(go => go.drow())
+        this.character.move(0)
     }
 
     update()
