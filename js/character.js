@@ -55,7 +55,7 @@ class Character
 
     animate_step_left()
     {
-        let current_animation_time = beat_duration() - this.remaining_time
+        let current_animation_time = time_to_next_beat
         this.character.left_leg.rotation = BASE_RIGHT_LEG_ROTATION + current_animation_time / beat_duration() * LEG_AMPLITUDE
         this.character.right_leg.rotation = BASE_LEFT_LEG_ROTATION - current_animation_time / beat_duration() * LEG_AMPLITUDE
     }
@@ -63,14 +63,14 @@ class Character
 
     animate_step_right()
     {
-        let current_animation_time = beat_duration() - this.remaining_time
+        let current_animation_time = time_to_next_beat
         this.character.left_leg.rotation = BASE_LEFT_LEG_ROTATION - current_animation_time / beat_duration() * LEG_AMPLITUDE
         this.character.right_leg.rotation = BASE_RIGHT_LEG_ROTATION + current_animation_time / beat_duration() * LEG_AMPLITUDE
     }
 
     head_bobble()
     {
-        let current_animation_time = beat_duration() - time_to_next_beat
+        let current_animation_time = time_to_next_beat
         this.character.head.rotation = BASE_HEAD_BOBBLE_RETARDNESS - Math.sin(Math.PI / beat_duration() * current_animation_time) * HEAD_BOBBLE_AMPLITUDE
         if (this.remaining_time <= 0)
             this.remaining_time = beat_duration();

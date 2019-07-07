@@ -6,7 +6,7 @@ app.stage.addChild(graphics_container)
 
 const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
-const START_BPM = 41
+const START_BPM = 82
 
 let scene = null
 let audio = null

@@ -12,24 +12,23 @@ function tick_refresher()
     time_to_next_beat -= ticker.deltaMS
     if (time_to_next_beat < 0 - beat_duration() * 0.15)
     {
-        time_to_next_beat = beat_duration() + time_to_next_beat
-        console.log("missed")
+        time_to_next_beat = beat_duration()
     }
 }
 
 function call_functions(arg)
 {
     let index = expected_keys[0].indexOf(arg.key);
-    if (time_to_next_beat > 0.15 * beat_duration() || time_to_next_beat - beat_duration() > beat_duration() * 0.15 || index === -1)
+    tick_refresher()
+    if (time_to_next_beat > 0.25 * beat_duration() + 150 || time_to_next_beat - beat_duration() > beat_duration() * 0.25 + 150 || index === -1)
     {
-        console.log("blargh")
         return
     }
     expected_keys[0].splice(index, 1)
     if (expected_keys[0].length !== 0)
         return ;
     current_bpm += 1
-    time_to_next_beat += beat_duration()
+    time_to_next_beat = beat_duration()
     try
     {
         KEYS[arg.key]()
