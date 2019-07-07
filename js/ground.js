@@ -2,7 +2,7 @@ const GROUND_SEGMENTS_COUNT = 10
 const GROUND_SEGMENTS_LENGTH = app.screen.width / (GROUND_SEGMENTS_COUNT - 1)
 const GROUND_NOISE = 10
 const DEFAULT_GROUND_HEIGHT = app.screen.height / 3 * 2
-const PRELOADED_SEGMENTS = 15
+const PRELOADED_SEGMENTS = 8
 
 function _add_segment(nodes)
 {
