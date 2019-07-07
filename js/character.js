@@ -128,7 +128,7 @@ class Character
         app.ticker.add((delta) => {
             if (this.head.rotation >= 0.1 || this.head.rotation <= -0.1)
                 direction *= -1;
-            this.head.rotation += direction
+            this.head.rotation += direction * delta
         })
     }
 
