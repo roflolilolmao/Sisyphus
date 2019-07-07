@@ -54,6 +54,7 @@ function update(delta)
         move_property(graphics_container.position)
         move_property(scene.ground.sprite.tilePosition)
         move_property(scene.sky.sprite.tilePosition, 1 / 4, 0)
+        move_property(scene.vegetation.trees.position)
     }
 
     move_camera()

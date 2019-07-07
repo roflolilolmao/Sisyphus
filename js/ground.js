@@ -27,16 +27,37 @@ class Ground
 
         let left = (n - 2) * GROUND_SEGMENTS_LENGTH
         let right = (n - 1) * GROUND_SEGMENTS_LENGTH
+        let left_point = new PIXI.Point(left, this.height_at(n - 2))
+        let right_point = new PIXI.Point(right, this.height_at(n - 1))
 
         let mask_piece = new PIXI.Graphics()
         this.sky_mask.addChild(mask_piece)
+        new PIXI.Point(left, this.height_at(n - 2))
         mask_piece.beginFill(0xFF0000)
         mask_piece.drawPolygon([
             new PIXI.Point(left, 2000),
             new PIXI.Point(right, 2000),
-            new PIXI.Point(right, this.height_at(n - 1)),
-            new PIXI.Point(left, this.height_at(n - 2))
+            right_point,
+            left_point
         ])
+
+        this.scene.vegetation.add_plants(this)
+        this.scene.lines.add_line(left_point, right_point)
+    }
+
+    random_x_on_last_segment()
+    {
+        return this.nodes.length - 2 + Math.random()
+    }
+
+    random_point_on_last_segment()
+    {
+        let x = this.random_x_on_last_segment()
+        let y = Math.random() * app.screen.height + this.height_at(x)
+        return {
+            'x': x,
+            'y': y
+        }
     }
 
     height_at(x_position)
