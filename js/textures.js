@@ -13,6 +13,7 @@ function add_textures(name, filename, count)
 }
 
 add_texture('ground', 'MountainRepeatFinal.png')
+add_texture('moon', 'Moon.png')
 add_texture('sky', 'MoutainScrollerSkyRepeat.jpg')
 add_texture('head', 'CharacterHead.png')
 add_texture('body', 'CharacterBody.png')

@@ -1,4 +1,4 @@
-const ROCK_RADIUS = 30
+let ROCK_RADIUS = 30
 
 class Rock
 {
@@ -10,11 +10,11 @@ class Rock
 
     drow()
     {
-        this.graphics = new PIXI.Graphics()
+        this.graphics = new PIXI.Sprite.from(textures.moon)
         graphics_container.addChild(this.graphics)
-        this.graphics.beginFill(0xFFFFFFF)
-        this.graphics.drawCircle(0, 0, ROCK_RADIUS)
-        this.graphics.endFill()
+        this.graphics.anchor.set(0.5, 0.5)
+        this.graphics.scale.set(0.8, 0.8)
+        ROCK_RADIUS = this.graphics.height / 2
     }
 
     update()
