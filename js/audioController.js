@@ -11,12 +11,15 @@ class AudioTracks
     {
         this.tracks = [];
         tracksURLs.forEach((url) => {
-            let new_audio = new Audio(url);
+            let new_audio = new Howl({
+                src: [url],
+                loop: true,
+                preload: true,
+                rate: 1.0
+            })
             this.tracks.push(new_audio);
         })
-        this.tracks.forEach((elem) => {
-            elem.loop = true;
-        })
+
     }
 
     calculate_playback_speed()
@@ -27,7 +30,7 @@ class AudioTracks
     set_playback_speed()
     {
         this.tracks.forEach((elem) => {
-            elem.playbackRate = this.playback_speed;
+            elem.rate(this.playback_speed)
         })
     }
 }
