@@ -1,4 +1,4 @@
-CHARACTER_HEIGHT = 50
+CHARACTER_HEIGHT = 40
 
 class Character
 {
@@ -32,9 +32,7 @@ class Character
                 app.ticker.add(this.step_two, this)
         }
         if (key.key === "3")
-        {
             app.ticker.add(this.head_butt_down, this)
-        }
 
     }
 
@@ -50,14 +48,14 @@ class Character
 
         this.container.addChild(this.left_leg);
 
-        this.left_leg.position.set(-175, -10);
+        this.left_leg.position.set(-35, -15);
         this.left_leg.scale.x = 0.2;
         this.left_leg.scale.y = 0.2;
         this.left_leg.rotation = 0.3;
 
         this.container.addChild(this.right_leg);
 
-        this.right_leg.position.set(-165, -5);
+        this.right_leg.position.set(-25, -10);
         this.right_leg.scale.x = 0.2;
         this.right_leg.scale.y = 0.2;
         this.right_leg.rotation = -0.3;
@@ -65,13 +63,13 @@ class Character
         let body = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterBody.png');
         this.container.addChild(body);
 
-        body.position.set(-200, -45);
+        body.position.set(-60, -45);
         body.scale.x = 0.2;
         body.scale.y = 0.2;
 
         this.container.addChild(this.head);
 
-        this.head.position.set(-160, -35);
+        this.head.position.set(-20, -35);
         this.head.anchor.set(0.1, 0.8);
         this.head.scale.x = 0.2;
         this.head.scale.y = 0.2;
