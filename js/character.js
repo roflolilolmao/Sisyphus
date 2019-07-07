@@ -13,9 +13,9 @@ class Character
         this.scene = scene
         this.x_position = x_position
 
-        this.left_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg01.png');
-        this.right_leg = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterLeg02.png');
-        this.head = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterHead.png');
+        this.left_leg = new PIXI.Sprite.from(textures.left_leg);
+        this.right_leg = new PIXI.Sprite.from(textures.right_leg);
+        this.head = new PIXI.Sprite.from(textures.head);
     }
 
     drow()
@@ -37,7 +37,7 @@ class Character
         this.right_leg.scale.y = 0.2;
         this.right_leg.rotation = BASE_RIGHT_LEG_ROTATION;
 
-        let body = new PIXI.Sprite.from('https://roflolilolmao.github.io/Sisyphus/assets/images/CharacterBody.png');
+        let body = new PIXI.Sprite.from(textures.body);
         this.container.addChild(body);
 
         body.position.set(-60, -45);
