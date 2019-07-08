@@ -1,6 +1,11 @@
 var time_to_next_beat = beat_duration()
 var time_since_beat = 0
 
+const RELATIVE_TOLERANCE = 0.25
+let touched = false
+let pinged = false
+let ping = null
+
 function start_tick_refresher()
 {
     time_to_next_beat = beat_duration()
@@ -12,8 +17,20 @@ function tick_refresher()
 {
     time_to_next_beat -= ticker.deltaMS
     time_since_beat += ticker.deltaMS
+
+    if (time_since_beat > RELATIVE_TOLERANCE * beat_duration())
+    {
+        if (!touched && phases.current_phase != 0)
+            scene.character.increment_fatigue(Math.random() * 10 + 5)
+        pinged = true
+        touched = false
+        if (ping != null)
+            ping()
+    }
+
     if (time_since_beat > beat_duration())
     {
+        pinged = false
         let delta_overflow = time_since_beat -  beat_duration()
         time_to_next_beat = beat_duration() - delta_overflow
         time_since_beat = delta_overflow
@@ -41,9 +58,9 @@ function call_functions(arg)
         return
 
     let relative_difference = difference_to_beat() / beat_duration()
-    if (relative_difference > 0.25 && difference_to_beat() > 100)
+    if (relative_difference > RELATIVE_TOLERANCE && difference_to_beat() > 100)
     {
-        scene.character.increment_fatigue(50 * relative_difference)
+        scene.character.increment_fatigue(25 * relative_difference)
         return
     }
 
@@ -56,6 +73,7 @@ function call_functions(arg)
 
     if (result == KEY_CORRECT)
     {
+        touched = true
         current_bpm += 0.3
         phases.set_according_to_bpm()
         if (phases.current_phase)
