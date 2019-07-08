@@ -79,7 +79,7 @@ function prout()
 
 function move_character_for_a_beat(delta)
 {
-    let distance = this.distance_per_tick
+    let distance = this.distance / ticker.FPS / beats_period()
 
     this.character.move(distance)
     this.remaining_time -= ticker.deltaMS
@@ -89,12 +89,14 @@ function move_character_for_a_beat(delta)
         ticker.remove(move_character_for_a_beat, this)
 }
 
-function distance_per_tick()
+function distance_to_next_key()
 {
-    let distance = scene.keys.next_key_position() - scene.character.x_position
-    console.log(scene.keys.next_key_position(), scene.character.x_position, distance, ticker.FPS)
-    let ticks_per_beat = ticker.FPS / current_bpm * 60
-    return distance / ticks_per_beat
+    return scene.keys.next_key_position() - scene.character.x_position
+}
+
+function beats_period()
+{
+    return 60 / current_bpm
 }
 
 function step_left()
@@ -102,7 +104,7 @@ function step_left()
     ticker.add(move_character_for_a_beat, {
         'character': scene.character,
         'remaining_time': time_to_next_human_beat(),
-        'distance_per_tick': distance_per_tick(),
+        'distance': distance_to_next_key(),
         'animation': scene.character.animate_step_left
     })
     queue_keys()
@@ -114,7 +116,7 @@ function step_right()
     ticker.add(move_character_for_a_beat, {
         'character': scene.character,
         'remaining_time': time_to_next_human_beat(),
-        'distance_per_tick': distance_per_tick(),
+        'distance': distance_to_next_key(),
         'animation': scene.character.animate_step_right
     })
     queue_keys()
