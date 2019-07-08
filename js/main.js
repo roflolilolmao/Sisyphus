@@ -31,6 +31,7 @@ function start_game(event=null)
 function reset_game()
 {
     current_bpm = START_BPM
+    keys_spawned = 0
     audio.calculate_playback_speed()
     audio.set_playback_speed()
     graphics_container.destroy({'children': true})
@@ -90,11 +91,6 @@ function display_game_over()
 function assets_path(filename)
 {
     return `https://roflolilolmao.github.io/Sisyphus/assets/${filename}`
-}
-
-function current_speed()
-{
-    return current_bpm * 0.02
 }
 
 function beat_duration()

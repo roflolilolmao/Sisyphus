@@ -112,8 +112,6 @@ class KeyStack
 
     update()
     {
-        if (this.x_position < scene.character.x_position)
-            graphics_container.removeChild(this.container);
     }
 }
 

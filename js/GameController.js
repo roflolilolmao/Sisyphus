@@ -79,10 +79,7 @@ function prout()
 
 function move_character_for_a_beat(delta)
 {
-    console.log(ticker.deltaMS)
     let distance = this.distance_per_tick
-    if (this.remaining_time - ticker.deltaMS < 0)
-        distance = scene.keys.next_key_position() - scene.character.x_position
 
     this.character.move(distance)
     this.remaining_time -= ticker.deltaMS
@@ -96,7 +93,8 @@ function distance_per_tick()
 {
     let distance = scene.keys.next_key_position() - scene.character.x_position
     console.log(scene.keys.next_key_position(), scene.character.x_position, distance, ticker.FPS)
-    return distance / ticker.FPS * beat_duration() / 60
+    let ticks_per_beat = ticker.FPS / current_bpm * 60
+    return distance / ticks_per_beat
 }
 
 function step_left()
