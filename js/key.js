@@ -4,12 +4,12 @@ const KEYS_SPECIFICS = {
     'd': {'y_offset': 100, 'color': 0x5555ff},
     'k': {'y_offset': 150, 'color': 0xff55ff}
 }
-const PHASES_KEYS_PROBABILITY = {
-    0: [0.95, 0.05],
-    1: [0.70, 0.25, 0.05],
-    2: [0.45, 0.25, 0.25, 0.05],
-    3: [0.25, 0.25, 0.25, 0.25],
-}
+const PHASES_KEYS_PROBABILITY = [
+    {1: 0.95, 2: 0.05},
+    {1: 0.89, 2: 0.10, 3: 0.01},
+    {1: 0.74, 2: 0.15, 3: 0.10, 4: 0.01},
+    {1: 0.25, 2: 0.25, 3: 0.25, 4: 0.25},
+]
 
 const AVAILABLE_KEYS = [
     'j', 'f', 'k', 'd'
@@ -31,14 +31,13 @@ function random_count()
 {
     let probabilities = PHASES_KEYS_PROBABILITY[phases.current_phase]
     let r = Math.random()
-    let p = 0
+    let sum = 0
 
-    for (let i = 0; i < probabilities.length; i++)
+    for (p in probabilities)
     {
-        console.log(p, r)
-        p += r
-        if (r < probabilities[i])
-            return i
+        sum += probabilities[p]
+        if (r <= sum)
+            return p
     }
 }
 
@@ -51,9 +50,7 @@ function random_keys()
         let j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]]
     }
-    console.log(a, count)
-    a = a.splice(0, 4 - count)
-    console.log(a)
+    a = a.splice(0, count)
     return a
 }
 
