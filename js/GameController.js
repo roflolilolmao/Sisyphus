@@ -4,7 +4,6 @@ var time_since_beat = 0
 const RELATIVE_TOLERANCE = 0.25
 let touched = false
 let pinged = false
-let ping = null
 
 function start_tick_refresher()
 {
@@ -18,14 +17,12 @@ function tick_refresher()
     time_to_next_beat -= ticker.deltaMS
     time_since_beat += ticker.deltaMS
 
-    if (time_since_beat > RELATIVE_TOLERANCE * beat_duration())
+    if (!pinged && time_since_beat > RELATIVE_TOLERANCE * beat_duration())
     {
         if (!touched && phases.current_phase != 0)
             scene.character.increment_fatigue(Math.random() * 10 + 5)
         pinged = true
         touched = false
-        if (ping != null)
-            ping()
     }
 
     if (time_since_beat > beat_duration())
