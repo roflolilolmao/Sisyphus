@@ -4,16 +4,31 @@ const KEYS =
         "j": step_right
     }
 
-var time_to_next_beat = 0;
+var time_to_next_beat = beat_duration();
+var time_since_beat = 0;
 var expected_keys = [["f"],["j"],["f"],["j"],["f"]]
+
+function start_tick_refresher()
+{
+    time_to_next_beat = beat_duration();
+    time_since_beat = 0;
+    ticker.add(tick_refresher)
+}
 
 function tick_refresher()
 {
     time_to_next_beat -= ticker.deltaMS
-    if (time_to_next_beat < 0 - beat_duration() * 0.15)
+    time_since_beat += ticker.deltaMS
+    if (time_since_beat > beat_duration())
     {
-        time_to_next_beat = beat_duration()
+        time_to_next_beat += time_since_beat
+        time_since_beat -= beat_duration()
     }
+}
+
+function difference_to_beat()
+{
+    return Math.min(time_to_next_beat, time_since_beat)
 }
 
 function call_functions(arg)
@@ -29,9 +44,10 @@ function call_functions(arg)
         return
     }
 
-    let relative_difference = Math.abs((time_to_next_beat - beat_duration()) / beat_duration())
-    let absolute_difference = Math.abs(time_to_next_beat - beat_duration())
-    if(relative_difference > 0.15 && absolute_difference > 150)
+    let relative_difference = difference_to_beat() / beat_duration()
+    console.log(time_to_next_beat, time_since_beat, difference_to_beat(), beat_duration()
+    ,relative_difference > 0.15 && difference_to_beat() > 100)
+    if(relative_difference > 0.15 && difference_to_beat() > 100)
     {
         scene.character.increment_fatigue(relative_difference)
         return

@@ -10,7 +10,7 @@ const START_BPM = 82
 
 let scene = null
 let audio = null
-let stopped = false
+let stopped = true
 var current_bpm = START_BPM
 
 let game_over_context = null
@@ -21,12 +21,15 @@ function start_game(event=null)
         event.target.style = "display:none";
     loadBasicCanvas()
     play_all_tracks()
-    ticker.add(tick_refresher)
+    start_tick_refresher()
     stopped = false
 }
 
 function reset_game()
 {
+    current_bpm = START_BPM
+    audio.calculate_playback_speed()
+    audio.set_playback_speed()
     graphics_container.destroy({'children': true})
     graphics_container = new PIXI.Container()
     app.stage.destroy({'children': true})
@@ -34,10 +37,9 @@ function reset_game()
     ticker.remove(tick_refresher)
     ticker.remove(update)
     scene = null
+
     create_scene()
     app.stage.addChild(graphics_container)
-
-    current_BPM = START_BPM
 
     document.getElementById('game_over').style.opacity = '0'
     document.getElementById('game_over').display = 'none'
