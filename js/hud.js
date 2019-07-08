@@ -7,7 +7,7 @@ class Hud
 
     drow()
     {
-        graphics_container.addChild(this.hud)
+        app.stage.addChild(this.hud)
     }
 
     update()
@@ -31,8 +31,8 @@ class Hud
         this.hud.addChild(this.text_gold)
 
         this.hud.position.set(
-            scene.screen_position_at(scene.character.x_position) - app.screen.width / 3,
-            scene.height_at(scene.character.x_position) - 2 * app.screen.height / 3
+            app.screen.width / 20,
+            app.screen.height / 20
         )
     }
 }
