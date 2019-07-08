@@ -20,8 +20,18 @@ class Character
         this.left_leg = new PIXI.Sprite.from(textures.left_leg);
         this.right_leg = new PIXI.Sprite.from(textures.right_leg);
         this.head = new PIXI.Sprite.from(textures.head);
+
+        this.stop_animations = false
     }
 
+    game_over()
+    {
+        this.head.rotation = 0.8
+        this.container.scale.set(-1, 1)
+
+        this.stop_animations = true
+    }
+    
     increment_fatigue(amount)
     {
         this.scene.fatigue.damage(amount)
@@ -82,8 +92,15 @@ class Character
 
     head_bobble()
     {
+        if (this.character.stop_animations)
+        {
+            ticker.remove(this.character.head_bobble, this)
+            return
+        }
+
         let current_animation_time = time_to_next_beat
         this.character.head.rotation = BASE_HEAD_BOBBLE_RETARDNESS - Math.sin(Math.PI / beat_duration() * current_animation_time) * HEAD_BOBBLE_AMPLITUDE
+
         if (this.remaining_time <= 0)
             this.remaining_time = beat_duration();
     }

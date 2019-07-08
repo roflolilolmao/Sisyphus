@@ -28,18 +28,24 @@ class AudioTracks
 {
     constructor()
     {
-        this.tracks = [];
-        tracksURLs.forEach((url) => {
-            let new_audio = new Howl({
+        this.tracks = tracksURLs.map(url => new Howl({
                 src: [url],
                 loop: true,
                 preload: true,
                 rate: 1.0,
                 onload: sound_loaded
             })
-            this.tracks.push(new_audio);
-        })
+        )
+    }
 
+    stop()
+    {
+        this.tracks.forEach(function(track) {
+            track.fade(track.volume(), 0, 5000)
+            track.onfade = function(track) {
+                track.stop()
+            }
+        })
     }
 
     calculate_playback_speed()

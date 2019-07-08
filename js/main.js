@@ -13,47 +13,72 @@ let audio = null
 let stopped = false
 var current_bpm = START_BPM
 
-function start_game(event)
+let game_over_context = null
+
+function start_game(event=null)
 {
-    event.target.style = "display:none";
+    if (event)
+        event.target.style = "display:none";
     loadBasicCanvas()
     play_all_tracks()
     ticker.add(tick_refresher)
     stopped = false
 }
 
+function reset_game()
+{
+    graphics_container.destroy({'children': true})
+    graphics_container = new PIXI.Container()
+    app.stage.destroy({'children': true})
+    app.stage = new PIXI.Container()
+    ticker.remove(tick_refresher)
+    ticker.remove(update)
+    scene = null
+    create_scene()
+    app.stage.addChild(graphics_container)
+
+    current_BPM = START_BPM
+
+    document.getElementById('game_over').style.opacity = '0'
+    document.getElementById('game_over').display = 'none'
+
+    start_game()
+}
+
 function animate_game_over()
 {
     this.time -= ticker.deltaMS
     document.getElementById('game_over') .style.opacity = '' + (1000 - this.time) / 1000
-    if (this.time <= 0)
-    {
-        reset_game()
-        setTimeout(function() { document.getElementById('game_over').display = 'none' }, 5000)
-        ticker.remove(animate_game_over, this)
-    }
 }
 
 function tumblefuck_rock()
 {
-    scene.rock.x_position -= 0.1
+    scene.rock.x_position -= 0.01
+    scene.rock.graphics.rotation -= 0.01
 }
 
 function game_over()
 {
     stopped = true
+    audio.stop()
+    scene.character.game_over()
     ticker.add(tumblefuck_rock, null)
     setTimeout(function() {
         display_game_over()
         ticker.remove(tumblefuck_rock, null)
     }, 5000)
+    setTimeout(function() {
+        ticker.remove(animate_game_over, game_over_context)
+        reset_game()
+    }, 10000)
 }
 
 function display_game_over()
 {
     document.getElementById('game_over') .style.display = 'block'
     document.getElementById('score') .innerHTML = '' + -scene.ground.height_at(scene.character.x_position) / GROUND_SEGMENTS_LENGTH
-    ticker.add(animate_game_over, {'time': 1000})
+    game_over_context = {'time': 1000}
+    ticker.add(animate_game_over, game_over_context)
 }
 
 function assets_path(filename)
@@ -121,5 +146,6 @@ function play_all_tracks()
 {
     audio.tracks.forEach((elem) => {
         elem.play();
+        elem.volume(1)
     })
 }
