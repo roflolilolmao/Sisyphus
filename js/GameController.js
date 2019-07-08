@@ -17,7 +17,7 @@ function tick_refresher()
     time_to_next_beat -= ticker.deltaMS
     time_since_beat += ticker.deltaMS
 
-    if (!pinged && time_since_beat > RELATIVE_TOLERANCE * beat_duration())
+    if (!stopped && !pinged && time_since_beat > RELATIVE_TOLERANCE * beat_duration())
     {
         if (!touched && phases.current_phase != 0)
             scene.character.increment_fatigue(Math.random() * 10 + 5)

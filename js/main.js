@@ -11,7 +11,7 @@ const START_BPM = 82
 let scene = null
 let audio = null
 let stopped = true
-let phases
+let phases = null
 var current_bpm = START_BPM
 
 let game_over_context = null
@@ -31,7 +31,10 @@ function start_game(event=null)
 
 function reset_game()
 {
+    pinged = false
+    touched = false
     current_bpm = START_BPM
+    phases.set_according_to_bpm()
     keys_spawned = 0
     audio.calculate_playback_speed()
     audio.set_playback_speed()
