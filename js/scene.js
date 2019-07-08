@@ -9,6 +9,7 @@ class Scene
         this.character = new Character(2, this)
         this.rock = new Rock(3, this)
         this.fatigue = new Fatigue(this.character)
+        this.keys = new Keys(this)
 
         this.game_objects = [
             this.sky,
@@ -17,11 +18,9 @@ class Scene
             this.character,
             this.rock,
             this.vegetation,
-            this.fatigue
+            this.fatigue,
+            this.keys
          ]
-        expected_keys.forEach((elem, counter) => {
-            this.game_objects.push(new Key(this.character.x_position + 6 * counter, 0, elem))
-        })
     }
 
     height_at(x_position)

@@ -1,12 +1,5 @@
-const KEYS =
-    {
-        "f": step_left,
-        "j": step_right
-    }
-
 var time_to_next_beat = beat_duration();
 var time_since_beat = 0;
-var expected_keys = [["f"],["j"],["f"],["j"],["f"]]
 
 function start_tick_refresher()
 {
@@ -77,19 +70,6 @@ function move_character_for_a_beat(delta)
     this.animation(ticker.deltaMS)
     if (this.remaining_time <= 0)
         ticker.remove(move_character_for_a_beat, this)
-}
-
-function queue_keys(keys)
-{
-    expected_keys.push(keys)
-    keys.forEach((elem, counter) => {
-       let new_key = new Key(
-            6 * (counter + 1) + scene.character.x_position,
-            0,
-            elem)
-        new_key.drow()
-        new_key.update()
-    })
 }
 
 function step_left()

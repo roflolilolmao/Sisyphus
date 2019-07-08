@@ -1,7 +1,51 @@
+const KEYS =
+    {
+        "f": step_left,
+        "j": step_right
+    }
+
 const KEY_LENGTHSIDE = 50
 const KEY_RADIUS = 5
 
-class Key
+var expected_keys = [["f"],["j"],["f"],["j"],["f"]]
+
+function queue_keys(keys)
+{
+    expected_keys.push(keys)
+    keys.forEach((elem, counter) => {
+       let new_key = new KeyStack(
+            6 * (counter + 1) + scene.character.x_position,
+            0,
+            elem)
+        new_key.drow()
+        scene.keys.keys.push(new_key)
+    })
+}
+
+
+class Keys
+{
+    constructor(scene)
+    {
+        this.scene = scene
+        this.keys = []
+        expected_keys.forEach((elem, counter) => {
+            this.keys.push(new KeyStack(this.scene.character.x_position + 6 * counter * 0.2, 0, elem))
+        })
+    }
+
+    drow()
+    {
+        this.keys.forEach(k => k.drow())
+    }
+
+    update()
+    {
+        this.keys.forEach(k => k.update())
+    }
+}
+
+class KeyStack
 {
     constructor(x_position, y, char)
     {
@@ -14,6 +58,11 @@ class Key
     drow()
     {
         graphics_container.addChild(this.container)
+
+        this.container.position.set(
+            scene.screen_position_at(this.x_position),
+            scene.ground.height_at(this.x_position) + this.y
+        )
 
         this.rect = new PIXI.Graphics();
         this.rect.beginFill(0xFFFFFF);
@@ -36,10 +85,6 @@ class Key
 
     update()
     {
-        this.container.position.set(
-            scene.screen_position_at(this.x_position),
-            scene.ground.height_at(this.x_position) + this.y
-        )
         if (this.x_position < scene.character.x_position)
             graphics_container.removeChild(this.container);
     }
