@@ -21,6 +21,9 @@ function start_game(event=null)
         event.target.style = "display:none";
     loadBasicCanvas()
     play_all_tracks()
+    audio.stop()
+    audio.tracks[0].mute(false)
+    audio.tracks[0].volume(1.0)
     start_tick_refresher()
     stopped = false
 }
@@ -62,7 +65,7 @@ function tumblefuck_rock()
 function game_over()
 {
     stopped = true
-    audio.stop()
+    audio.fade_to_stop()
     scene.character.game_over()
     ticker.add(tumblefuck_rock, null)
     setTimeout(function() {
