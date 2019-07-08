@@ -55,6 +55,9 @@ function call_functions(arg)
     if (stopped)
         return
 
+    if (!AVAILABLE_KEYS.includes(arg.key))
+        return
+
     let relative_difference = difference_to_beat() / beat_duration()
     if (relative_difference > RELATIVE_TOLERANCE && difference_to_beat() > 100)
     {
