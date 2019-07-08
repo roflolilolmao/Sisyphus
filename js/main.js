@@ -11,6 +11,7 @@ const START_BPM = 82
 let scene = null
 let audio = null
 let stopped = true
+let phases
 var current_bpm = START_BPM
 
 let game_over_context = null
@@ -106,6 +107,7 @@ function create_scene()
 window.onload = function () {
     document.getElementById('pixi_container').appendChild(app.view);
     audio = new AudioTracks()
+    phases = new Phases()
     create_scene()
 };
 

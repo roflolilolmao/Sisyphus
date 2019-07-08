@@ -5,13 +5,13 @@ const tracksURLs = [
     '4.Violons arpèges.wav',
     '5.Cor.wav',
     '6.Basse calme.wav',
+    'drum_vnr.wav',
     '7.Guitare Palmut.wav',
     '9.Guitare solo.wav',
     '10.Basse VNR (remplace basse calme).wav',
     '11.Violons disto (remplace violons arpèges).wav',
     '12. Drum MEGAVNR (remplace drum VNR).wav',
-    '13.Voice VNR (remplace voice).wav',
-    'drum_vnr.wav'
+    '13.Voice VNR (remplace voice).wav'
 ].map(n => assets_path(`tracks/${n}`))
 
 let loaded_sounds = 0;
@@ -30,28 +30,13 @@ class AudioTracks
     {
         this.tracks = tracksURLs.map(url => new Howl({
                     src: [url],
-                    volume: 1.0,
+                    volume: 0.0,
                     loop: true,
                     preload: true,
                     rate: 1.0,
                     onload: sound_loaded
                 })
         )
-        this.fading_in = [];
-    }
-
-
-    add_track_to_mix()
-    {
-        let random_index = Math.floor(Math.random() * this.tracks.length)
-        if (this.tracks[random_index].volume() >= 0.95)
-        {
-            this.add_track_to_mix()
-            return
-        }
-        this.tracks[random_index].volume(0.1)
-        this.tracks[random_index].mute(false)
-        this.fading_in.push(this.tracks[random_index])
     }
 
     stop()

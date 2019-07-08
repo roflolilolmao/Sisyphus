@@ -50,31 +50,24 @@ function call_functions(arg)
     let result = scene.keys.try_key(arg.key)
     if (result == KEY_FALSE)
     {
-        scene.character.increment_fatigue(50 + Math.random() * 5)
+        scene.character.increment_fatigue((50 + Math.random() * 5))
         return
     }
 
     if (result == KEY_CORRECT)
     {
         current_bpm += 0.3
-        prout()
+        phases.set_according_to_bpm()
+        if (phases.current_phase)
+            YOU_HAFF_TO_BE_LOUDER()
         next_step()
     }
 }
 
-function prout()
+function YOU_HAFF_TO_BE_LOUDER()
 {
-    if (audio.fading_in.length === 0)
-        audio.add_track_to_mix()
-    else
-    {
-        audio.fading_in.forEach((track, index, arr) =>
-        {
-            track.volume(track.volume() + 0.05)
-            if (track.volume() >= 0.95)
-                arr.splice(index)
-        })
-    }
+    if (Math.random() < 0.2)
+        phases.modify_random_track_volume(Math.random() / 10)
 }
 
 function move_character_for_a_beat(delta)
