@@ -16,6 +16,11 @@ var current_bpm = START_BPM
 
 let game_over_context = null
 
+function altitude()
+{
+    return -Math.round(scene.ground.height_at(scene.character.x_position) / 10)
+}
+
 function start_game(event=null)
 {
     if (event)
@@ -86,7 +91,7 @@ function game_over()
 function display_game_over()
 {
     document.getElementById('game_over') .style.display = 'block'
-    document.getElementById('score') .innerHTML = '' + -Math.round(scene.ground.height_at(scene.character.x_position) / GROUND_SEGMENTS_LENGTH)
+    document.getElementById('score') .innerHTML = '' + altitude()
     document.getElementById('bpm') .innerHTML = '' + parseFloat(current_bpm).toFixed(1)
     game_over_context = {'time': 1000}
     ticker.add(animate_game_over, game_over_context)
