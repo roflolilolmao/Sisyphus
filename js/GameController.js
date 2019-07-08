@@ -41,7 +41,7 @@ function call_functions(arg)
         return
 
     let relative_difference = difference_to_beat() / beat_duration()
-    if(relative_difference > 0.25 && difference_to_beat() > 100)
+    if (relative_difference > 0.25 && difference_to_beat() > 100)
     {
         scene.character.increment_fatigue(50 * relative_difference)
         return
@@ -57,7 +57,23 @@ function call_functions(arg)
     if (result == KEY_CORRECT)
     {
         current_bpm += 0.3
+        prout()
         next_step()
+    }
+}
+
+function prout()
+{
+    if (audio.fading_in.length === 0)
+        audio.add_track_to_mix()
+    else
+    {
+        audio.fading_in.forEach((track, index, arr) =>
+        {
+            track.volume(track.volume() + 0.05)
+            if (track.volume() >= 0.95)
+                arr.splice(index)
+        })
     }
 }
 

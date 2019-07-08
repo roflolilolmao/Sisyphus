@@ -10,6 +10,7 @@ class Scene
         this.rock = new Rock(3, this)
         this.fatigue = new Fatigue(this.character)
         this.keys = new Keys(this)
+        this.hud = new Hud()
 
         this.game_objects = [
             this.sky,
@@ -19,7 +20,8 @@ class Scene
             this.rock,
             this.vegetation,
             this.fatigue,
-            this.keys
+            this.keys,
+            this.hud
          ]
     }
 

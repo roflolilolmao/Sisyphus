@@ -16,6 +16,7 @@
     <script src="js/rock.js"></script>
     <script src="js/key.js"></script>
     <script src="js/character.js"></script>
+    <script src="js/hud.js"></script>
     <script src="js/ground.js"></script>
     <script src="js/scene.js"></script>
 </head>
@@ -29,7 +30,9 @@
                 color: cyan;
                 height: 100%;
                 margin: 0;
-        "><h1>Game over</h1><p>You went up to <span id="score"></span> meters!</p></div>
+        "><h1>Game over</h1>
+            <p>You went up to <span id="score"></span> meters at a frequency of <span id="bpm"></span> BPM!</p>
+        </div>
         <button id="play_btn" onclick="start_game(event)" style="
                 display: none;
                 width: 100%;
