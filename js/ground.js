@@ -65,8 +65,8 @@ class Ground
         if (x_position < 0)
             x_position = 0
 
-        if (x_position > this.nodes.length - 1)
-            x_position = this.nodes.length - 1
+        while (x_position > this.nodes.length - 1)
+            this.add_segment()
 
         let floating_part = x_position - Math.floor(x_position)
         return (
