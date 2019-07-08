@@ -21,7 +21,6 @@ function tick_refresher()
     time_since_beat += ticker.deltaMS
     if (time_since_beat > beat_duration())
     {
-        //console.log(time_to_next_beat, time_since_beat, beat_duration())
         let delta_overflow = time_since_beat -  beat_duration()
         time_to_next_beat = beat_duration() - delta_overflow
         time_since_beat = delta_overflow
@@ -47,8 +46,6 @@ function call_functions(arg)
     }
 
     let relative_difference = difference_to_beat() / beat_duration()
-    console.log(time_to_next_beat, time_since_beat, difference_to_beat(), beat_duration()
-    ,relative_difference > 0.15 && difference_to_beat() > 100)
     if(relative_difference > 0.15 && difference_to_beat() > 100)
     {
         scene.character.increment_fatigue(relative_difference)
