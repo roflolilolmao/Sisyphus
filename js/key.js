@@ -86,6 +86,8 @@ class Keys
 
     try_key(letter)
     {
+        if (this.next_key_position() - scene.character.x_position > KEYS_SEPARATION * RELATIVE_TOLERANCE)
+            return KEY_FALSE
         let result = this.keys[0].try_key(letter)
         if (result == KEY_CORRECT)
         {
