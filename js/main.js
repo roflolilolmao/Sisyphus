@@ -81,7 +81,8 @@ function game_over()
 function display_game_over()
 {
     document.getElementById('game_over') .style.display = 'block'
-    document.getElementById('score') .innerHTML = '' + -scene.ground.height_at(scene.character.x_position) / GROUND_SEGMENTS_LENGTH
+    document.getElementById('score') .innerHTML = '' + -Math.round(scene.ground.height_at(scene.character.x_position) / GROUND_SEGMENTS_LENGTH)
+    document.getElementById('bpm') .innerHTML = '' + parseFloat(current_bpm).toFixed(1)
     game_over_context = {'time': 1000}
     ticker.add(animate_game_over, game_over_context)
 }
