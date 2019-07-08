@@ -1,3 +1,14 @@
+const KEYS_SPECIFICS = {
+    'j': {'y_offset': 0, 'color': 0x55ff55},
+    'f': {'y_offset': 40, 'color': 0xff5555},
+    'd': {'y_offset': 80, 'color': 0x5555ff},
+    'k': {'y_offset': 120, 'color': 0xff55ff}
+}
+
+const AVAILABLE_KEYS = [
+    'j', 'f', 'k', 'd'
+]
+
 let next_step = step_left
 
 KEY_FALSE = -1
@@ -10,12 +21,19 @@ const KEY_RADIUS = 5
 const KEYS_SEPARATION = 2
 let keys_spawned = 0
 
+function random_keys()
+{
+    return [AVAILABLE_KEYS[Math.floor(Math.random() * AVAILABLE_KEYS.length)]]
+}
+
 function queue_keys()
 {
+    let keys = null
     if (scene.keys.keys[scene.keys.keys.length - 1].contains('f'))
         keys = ['j']
     else
-        keys = ['f']
+        key = ['f']
+    keys = random_keys()
 
     let stack = new KeyStack(
         keys_spawned * KEYS_SEPARATION + CHARACTER_SPAWN_POINT,
@@ -128,10 +146,10 @@ class Key
     {
         this.stack.container.addChild(this.container)
 
-        this.container.position.set(0, 0)
+        this.container.position.set(0, KEYS_SPECIFICS[this.key_to_print].y_offset)
 
         this.rect = new PIXI.Graphics();
-        this.rect.beginFill(0xFFFFFF);
+        this.rect.beginFill(KEYS_SPECIFICS[this.key_to_print].color);
         this.rect.drawRoundedRect(
             0,
             10,
@@ -142,7 +160,7 @@ class Key
         this.rect.endFill()
         this.container.addChild(this.rect)
 
-        this.text = new PIXI.Text(this.key_to_print, {fontSize: 36})
+        this.text = new PIXI.Text(this.key_to_print, {fontSize: 36, color: 0xffffff})
         this.container.addChild(this.text)
 
         this.text.position.x = this.container.width / 2 - this.text.width / 2
