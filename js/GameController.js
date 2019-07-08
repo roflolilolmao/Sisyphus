@@ -4,6 +4,7 @@ var time_since_beat = 0
 const RELATIVE_TOLERANCE = 0.25
 let touched = false
 let pinged = false
+let gold = 0
 
 function start_tick_refresher()
 {

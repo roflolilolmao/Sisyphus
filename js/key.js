@@ -133,6 +133,7 @@ class KeyStack
                 {
                     this.keys[i].container.destroy({'children': true})
                     this.keys.splice(i, 1)
+                    gold += 1
                     break
                 }
             }
