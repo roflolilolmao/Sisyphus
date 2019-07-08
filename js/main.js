@@ -90,7 +90,7 @@ function assets_path(filename)
 
 function current_speed()
 {
-    return current_bpm * 0.1
+    return current_bpm * 0.02
 }
 
 function beat_duration()

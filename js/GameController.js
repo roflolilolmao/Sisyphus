@@ -41,21 +41,21 @@ function call_functions(arg)
 
     if (index === -1)
     {
-        scene.character.increment_fatigue(20 + Math.random() * 10)
+        scene.character.increment_fatigue(50 + Math.random() * 5)
         return
     }
 
     let relative_difference = difference_to_beat() / beat_duration()
-    if(relative_difference > 0.15 && difference_to_beat() > 100)
+    if(relative_difference > 0.25 && difference_to_beat() > 100)
     {
-        scene.character.increment_fatigue(relative_difference)
+        scene.character.increment_fatigue(50 * relative_difference)
         return
     }
     
     expected_keys[0].splice(index, 1)
     if (expected_keys[0].length !== 0)
         return ;
-    current_bpm += 1
+    current_bpm += 0.3
     time_to_next_beat = beat_duration()
     try
     {
