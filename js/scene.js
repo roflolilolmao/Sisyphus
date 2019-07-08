@@ -6,7 +6,7 @@ class Scene
         this.vegetation = new Vegetation(this)
         // this.lines = new Lines(this)
         this.ground = new Ground(this)
-        this.character = new Character(2, this)
+        this.character = new Character(CHARACTER_SPAWN_POINT, this)
         this.rock = new Rock(3, this)
         this.fatigue = new Fatigue(this.character)
         this.keys = new Keys(this)
