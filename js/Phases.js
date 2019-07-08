@@ -26,7 +26,7 @@ class Phases
       this.current_phase = 0
       return
     }
-    this.current_phase = Math.floor(current_bpm / 60) - 1
+    this.current_phase = Math.floor(current_bpm / 60)
     if (this.current_phase > 4)
       this.current_phase = 4
   }
