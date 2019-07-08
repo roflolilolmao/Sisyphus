@@ -20,7 +20,13 @@ function sound_loaded()
 {
     loaded_sounds++;
     if (loaded_sounds >= tracksURLs.length)
-        document.getElementById("play_btn").style.display = 'block'
+    {
+        let btn = document.getElementById("play_btn")
+        btn.onclick = start_game
+        btn.style.zIndex = "3"
+        btn.style.background = "none"
+        btn.textContent = "Play !"
+    }
 }
 
 

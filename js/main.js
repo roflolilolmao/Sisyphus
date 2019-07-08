@@ -1,4 +1,7 @@
-const app = new PIXI.Application({'resizeTo': window})
+const app = new PIXI.Application({
+    width: window.innerWidth - 20,
+    height: window.innerHeight - 20
+})
 
 const ticker = PIXI.Ticker.shared
 var graphics_container = new PIXI.Container()
@@ -24,7 +27,7 @@ function altitude()
 function start_game(event=null)
 {
     if (event)
-        event.target.style = "display:none";
+        document.getElementById("cheating_div").style.cssText = "display:none"
     loadBasicCanvas()
     play_all_tracks()
     audio.stop()
