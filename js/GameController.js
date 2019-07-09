@@ -108,7 +108,7 @@ function move_character_for_a_beat(delta)
     let distance = this.distance / ticker.FPS / beats_period()
 
     this.character.move(distance)
-    this.remaining_time -= ticker.deltaMS
+    this.remaining_time -= ticker.deltaMS / ticker.speed
     this.animation(ticker.deltaMS)
 
     if (this.remaining_time <= 0)
