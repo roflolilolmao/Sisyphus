@@ -136,7 +136,7 @@ class KeyStack
                 {
                     this.keys[i].container.destroy({'children': true})
                     this.keys.splice(i, 1)
-                    scene.character.fatigue = Math.max(0, scene.character.fatigue - relics[ENDURANCE_ID].level)
+                    scene.character.increment_fatigue(-relics[ENDURANCE_ID].level)
                     gold += 1 * (1 + relics[MIDAS_ID].level)
                     break
                 }

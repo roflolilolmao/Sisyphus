@@ -37,6 +37,7 @@ class Character
     {
         this.scene.fatigue.damage(amount)
         this.fatigue += amount
+        this.fatigue = Math.max(0, this.fatigue)
         if (this.fatigue >= MAX_FATIGUE)
             game_over()
     }

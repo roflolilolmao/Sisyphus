@@ -298,8 +298,8 @@ TURTLE_ID = 7
 
 AVAILABLE_RELICS = [
     {'name': 'Feather of endurance', 'rarity': Relic, 'color': 0xff7b7e, 'base_price': 5, 'text': 'Fatigue regenerates over time'},
-    {'name': 'Feather of toughness', 'rarity': Relic, 'color': 0xc7642d, 'base_price': 1, 'text': 'Receive more gold'},
-    {'name': 'Feather of Midas', 'rarity': Relic, 'color': 0x08fb9a, 'base_price': 10, 'text': 'Receive less fatigue'},
+    {'name': 'Feather of toughness', 'rarity': Relic, 'color': 0xc7642d, 'base_price': 1, 'text': 'Receive less fatigue'},
+    {'name': 'Feather of Midas', 'rarity': Relic, 'color': 0x08fb9a, 'base_price': 10, 'text': 'Receive more gold'},
     {'name': 'Feather of tardness', 'rarity': Relic, 'color': 0x7e3dc9, 'base_price': 10, 'text': 'Difficulty ramps up more slowly'},
     {'name': 'Feather of mastery', 'rarity': Relic, 'color': 0xf5e098, 'base_price': 15, 'text': 'Notes are easier to hit'},
     {'name': 'Feather of great luck', 'rarity': Relic, 'color': 0x8450ce, 'base_price': 15, 'text': 'Chords are rarer'},
