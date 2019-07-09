@@ -35,8 +35,10 @@ function start_game(event=null)
     audio.stop()
     audio.tracks[0].mute(false)
     audio.tracks[0].volume(1.0)
-    start_tick_refresher()
+    if (bad_fix)
+        start_tick_refresher()
     stopped = false
+    bad_fix = false
 }
 
 function reset_game()
@@ -52,7 +54,6 @@ function reset_game()
     graphics_container = new PIXI.Container()
     app.stage.destroy({'children': true})
     app.stage = new PIXI.Container()
-    ticker.remove(tick_refresher)
     ticker.remove(update)
     scene = null
 
@@ -161,10 +162,13 @@ function loadBasicCanvas()
     ticker.add(update)
 }
 
+let bad_fix = true
+
 function play_all_tracks()
 {
     audio.tracks.forEach((elem) => {
-        elem.play();
+        if (bad_fix)
+            elem.play();
         elem.volume(1)
     })
 }
