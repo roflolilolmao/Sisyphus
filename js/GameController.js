@@ -10,10 +10,7 @@ let correct_keys = 0
 function try_to_buy(price)
 {
     if (price > gold)
-    {
-        console.log('WE NEED MORE GOLD')
         return false
-    }
     gold -= price
     return true
 }

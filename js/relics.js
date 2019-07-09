@@ -7,6 +7,8 @@ COLOR_LEVELS = [
     0xff0000
 ]
 
+let bought_items_count = 0
+
 FEATHER_SPRITE_RATIO = 0.33
 
 function random_relics()
@@ -21,7 +23,7 @@ function random_relics()
         let j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]]
     }
-    return a.splice(0, 5)
+    return a.splice(0, 4)
 }
 
 class Relic
@@ -33,6 +35,13 @@ class Relic
         this.icon = textures.feather
         this.effect = args.effect
         this.color = args.color
+        this.name = args.name
+        this.text = args.text
+    }
+
+    price()
+    {
+        return Math.floor(this.base_price * (1 + this.level) * Math.pow(1.01, bought_items_count))
     }
 
     level_up()
@@ -40,17 +49,20 @@ class Relic
         if (this.level >= this.max_level())
             return this.level
 
-        if (try_to_buy(this.base_price))
+        if (try_to_buy(this.price()))
         {
             this.level++
+            bought_items_count++
             let lelelel = this
             scene.hud_relics.relics.forEach(function(r) {
                 if (r.relic === lelelel)
                     r.level_up()
+                r.update_shit()
             })
             scene.shop_relics.relics.forEach(function(r) {
                 if (r.relic === lelelel)
                     r.level_up()
+                r.update_shit()
             })
         }
 
@@ -141,7 +153,6 @@ class DrowRelic
     {
         this.parent_container = parent_container
         this.level = relic.level
-        this.base_price = relic.base_price
         this.icon = relic.icon
         this.effect = relic.effect
         this.color = relic.color
@@ -168,9 +179,15 @@ class DrowRelic
     level_up()
     {
         this.level = this.relic.level
+    }
+
+    update_shit()
+    {
         this.fill_border()
         this.fill_interior()
         this.scale_feather()
+        this.gold.text = this.gold_text()
+        this.tooltip.text = this.tooltip_text()
         this.container.visible = this.shop || this.level > 0
     }
 
@@ -194,11 +211,26 @@ class DrowRelic
         this.feather.scale.set(ratio, ratio)
     }
 
+    gold_text()
+    {
+        return '' + this.relic.price()
+    }
+
+    tooltip_text()
+    {
+        return this.relic.text
+    }
+
     drow()
     {
         this.border = new PIXI.Graphics()
         this.interior = new PIXI.Graphics()
         this.feather = new PIXI.Sprite.from(this.icon)
+
+        this.gold = new PIXI.Text(this.gold_text(), {fontSize: 16, fill: 0xffd700, fontWeight: 60})
+        this.gold.position.set(10, 35)
+        this.tooltip = new PIXI.Text(this.tooltip_text(), {fontSize: 20, fill: 0x220011, fontWeight: 120})
+        this.tooltip.position.set(70, 20)
 
         this.container.visible = this.shop || this.level > 0
 
@@ -207,13 +239,19 @@ class DrowRelic
         this.container.addChild(this.interior)
         this.container.addChild(this.feather)
 
-        this.fill_border()
+        if (this.shop)
+        {
+            this.container.addChild(this.gold)
+            this.container.addChild(this.tooltip)
+        }
 
+        this.fill_border()
         this.fill_interior()
 
         this.feather.anchor.set(0.5, 0.5)
         this.scale_feather()
         this.feather.position.set(30, 30)
+        this.feather.tint = this.color
     }
 
     update()
@@ -252,8 +290,14 @@ class DrowLegendaryRelic extends DrowRelic
 ENDURANCE_ID = 0
 
 AVAILABLE_RELICS = [
-    {'name': 'Feather of endurance', 'rarity': Relic, 'color': 0xff7777, 'base_price': 5},
-    {'name': 'Feather of ease', 'rarity': LegendaryRelic, 'color': 0xff7777, 'base_price': 500}
+    {'name': 'Feather of endurance', 'rarity': Relic, 'color': 0xff7b7e, 'base_price': 5, 'text': 'Fatigue regenerates over time'},
+    {'name': 'Feather of toughness', 'rarity': Relic, 'color': 0xc7642d, 'base_price': 1, 'text': 'Receive more gold'},
+    {'name': 'Feather of Midas', 'rarity': Relic, 'color': 0x08fb9a, 'base_price': 10, 'text': 'Receive less fatigue'},
+    {'name': 'Feather of tardness', 'rarity': Relic, 'color': 0x7e3dc9, 'base_price': 10, 'text': 'Difficulty ramps up more slowly'},
+    {'name': 'Feather of mastery', 'rarity': Relic, 'color': 0xf5e098, 'base_price': 15, 'text': 'Notes are easier to hit'},
+    {'name': 'Feather of great luck', 'rarity': Relic, 'color': 0x8450ce, 'base_price': 15, 'text': 'Chords are rarer'},
+    {'name': 'Feather of ease', 'rarity': LegendaryRelic, 'color': 0x0f77d7, 'base_price': 500, 'text': 'BPM rises more slowly'},
+    {'name': 'Feather of the turtle', 'rarity': LegendaryRelic, 'color': 0x9c95c6, 'base_price': 300, 'text': 'BPM starts at a lower value'}
 ]
 
 let relics = AVAILABLE_RELICS.map(r => new r.rarity(r))
