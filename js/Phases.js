@@ -1,9 +1,12 @@
+const P0_TOTAL_KEYS = 10
+
 class Phases
 {
   constructor()
   {
     this.current_phase = 0
     this.tracks_in_phase = [[],[],[],[]]
+    this.keys_per_phase = 50
 
     this.tracks_in_phase[0] = audio.tracks[0]
 
@@ -19,16 +22,16 @@ class Phases
     })
   }
 
-  set_according_to_bpm()
+  set_according_to_correct_keys()
   {
-    if (current_bpm < 85)
+    if (correct_keys < P0_TOTAL_KEYS)
     {
       this.current_phase = 0
       return
     }
-    this.current_phase = Math.floor(current_bpm / 60)
-    if (this.current_phase > 4)
-      this.current_phase = 4
+    this.current_phase = Math.floor((correct_keys - P0_TOTAL_KEYS) / (this.keys_per_phase)) + 1
+    if (this.current_phase > 3)
+      this.current_phase = 3
   }
 
   modify_random_track_volume(modifier)
