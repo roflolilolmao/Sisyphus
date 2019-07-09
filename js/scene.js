@@ -10,7 +10,8 @@ class Scene
         this.rock = new Rock(3, this)
         this.fatigue = new Fatigue(this.character)
         this.keys = new Keys(this)
-        this.relics = new Relics()
+        this.shop_relics = new ShopRelics()
+        this.hud_relics = new HUDRelics()
         this.hud = new Hud()
 
         this.game_objects = [
@@ -22,7 +23,8 @@ class Scene
             this.vegetation,
             this.fatigue,
             this.keys,
-            this.relics,
+            this.shop_relics,
+            this.hud_relics,
             this.hud
          ]
     }

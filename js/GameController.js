@@ -6,6 +6,17 @@ let touched = false
 let pinged = false
 let gold = 0
 
+function try_to_buy(price)
+{
+    if (price > gold)
+    {
+        console.log('WE NEED MORE GOLD')
+        return false
+    }
+    gold -= price
+    return true
+}
+
 function start_tick_refresher()
 {
     time_to_next_beat = beat_duration()
