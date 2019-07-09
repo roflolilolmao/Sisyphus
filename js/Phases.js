@@ -14,7 +14,7 @@ class Phases
       this.tracks_in_phase[1].push(audio.tracks[i + 1])
     for (let i = 0; i < 3; i++)
       this.tracks_in_phase[2].push(audio.tracks[i + 7])
-    for (let i = 0; i < 10; i++)
+    for (let i = 0; i < 3; i++)
       this.tracks_in_phase[3].push(audio.tracks[i + 10])
     this.tracks_in_phase[2].forEach((track) =>
     {
