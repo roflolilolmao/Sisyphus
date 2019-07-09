@@ -137,7 +137,7 @@ class HUDRelics
 }
 class DrowRelic
 {
-    constructor(parent_container, relic, clickable)
+    constructor(parent_container, relic, shop)
     {
         this.parent_container = parent_container
         this.level = relic.level
@@ -146,10 +146,11 @@ class DrowRelic
         this.effect = relic.effect
         this.color = relic.color
         this.relic = relic
+        this.shop = shop
 
         this.container = new PIXI.Container()
 
-        if (!clickable)
+        if (!shop)
             return
 
         this.container.hitArea = new PIXI.Polygon([
@@ -170,6 +171,7 @@ class DrowRelic
         this.fill_border()
         this.fill_interior()
         this.scale_feather()
+        this.container.visible = this.shop || this.level > 0
     }
 
     fill_interior()
@@ -198,6 +200,8 @@ class DrowRelic
         this.interior = new PIXI.Graphics()
         this.feather = new PIXI.Sprite.from(this.icon)
 
+        this.container.visible = this.shop || this.level > 0
+
         this.parent_container.addChild(this.container)
         this.container.addChild(this.border)
         this.container.addChild(this.interior)
@@ -219,9 +223,9 @@ class DrowRelic
 
 class DrowLegendaryRelic extends DrowRelic
 {
-    constructor(container, relic, clickable)
+    constructor(container, relic, shop)
     {
-        super(container, relic, clickable)
+        super(container, relic, shop)
     }
 
     fill_border()
