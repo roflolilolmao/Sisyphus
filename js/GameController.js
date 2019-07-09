@@ -5,6 +5,7 @@ const RELATIVE_TOLERANCE = 0.25
 let touched = false
 let pinged = false
 let gold = 0
+let correct_keys = 0
 
 function start_tick_refresher()
 {
@@ -75,8 +76,9 @@ function call_functions(arg)
     if (result == KEY_CORRECT)
     {
         touched = true
+        correct_keys++
         current_bpm += 0.3
-        phases.set_according_to_bpm()
+        phases.set_according_to_correct_keys()
         if (phases.current_phase)
             YOU_HAFF_TO_BE_LOUDER()
         next_step()

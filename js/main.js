@@ -46,7 +46,8 @@ function reset_game()
     pinged = false
     touched = false
     current_bpm = START_BPM
-    phases.set_according_to_bpm()
+    correct_keys = 0
+    phases.set_according_to_correct_keys()
     keys_spawned = 0
     audio.calculate_playback_speed()
     audio.set_playback_speed()
