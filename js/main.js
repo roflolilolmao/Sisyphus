@@ -11,6 +11,8 @@ const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
 const START_BPM = 82
 
+let best_altitude = 0
+
 let scene = null
 let audio = null
 let stopped = true
@@ -77,6 +79,7 @@ function tumblefuck_rock()
 
 function game_over()
 {
+    best_altitude = Math.max(altitude(), best_altitude)
     stopped = true
     audio.fade_to_stop()
     scene.character.game_over()
@@ -95,6 +98,7 @@ function display_game_over()
 {
     document.getElementById('game_over') .style.display = 'block'
     document.getElementById('score') .innerHTML = '' + altitude()
+    document.getElementById('best') .innerHTML = '' + best_altitude
     document.getElementById('bpm') .innerHTML = '' + parseFloat(current_bpm).toFixed(1)
     game_over_context = {'time': 1000}
     ticker.add(animate_game_over, game_over_context)
