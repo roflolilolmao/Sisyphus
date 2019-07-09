@@ -21,8 +21,8 @@ var current_bpm = START_BPM_lel
 
 function START_BPM()
 {
-    if (relics[TURTLE_ID].level > 0)
-        return 62
+    //if (relics[TURTLE_ID].level > 0)
+        //return 62
     return START_BPM_lel
 }
 

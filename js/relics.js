@@ -294,7 +294,7 @@ TARDNESS_ID = 3
 MASTERY_ID = 4
 GREAT_LUCK_ID = 5
 EASE_ID = 6
-TURTLE_ID = 7
+//TURTLE_ID = 7
 
 AVAILABLE_RELICS = [
     {'name': 'Feather of endurance', 'rarity': Relic, 'color': 0xff7b7e, 'base_price': 5, 'text': 'Fatigue regenerates over time'},
@@ -303,8 +303,8 @@ AVAILABLE_RELICS = [
     {'name': 'Feather of tardness', 'rarity': Relic, 'color': 0x7e3dc9, 'base_price': 10, 'text': 'Difficulty ramps up more slowly'},
     {'name': 'Feather of mastery', 'rarity': Relic, 'color': 0xf5e098, 'base_price': 15, 'text': 'Notes are easier to hit'},
     {'name': 'Feather of great luck', 'rarity': Relic, 'color': 0x8450ce, 'base_price': 15, 'text': 'Chords are rarer'},
-    {'name': 'Feather of ease', 'rarity': LegendaryRelic, 'color': 0x0f77d7, 'base_price': 500, 'text': 'BPM rises more slowly'},
-    {'name': 'Feather of the turtle', 'rarity': LegendaryRelic, 'color': 0x9c95c6, 'base_price': 300, 'text': 'BPM starts at a lower value'}
+    {'name': 'Feather of ease', 'rarity': LegendaryRelic, 'color': 0x0f77d7, 'base_price': 500, 'text': 'BPM rises more slowly'}
+    //{'name': 'Feather of the turtle', 'rarity': LegendaryRelic, 'color': 0x9c95c6, 'base_price': 300, 'text': 'BPM starts at a lower value'}
 ]
 
 let relics = AVAILABLE_RELICS.map(r => new r.rarity(r))
