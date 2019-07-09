@@ -20,8 +20,8 @@ class Ground
     {
         let n = this.nodes.length
         let f = 4
-        if (relics[TURTLE_ID].level > 0)
-            f = 3
+        //if (relics[TURTLE_ID].level > 0)
+         //   f = 3
         let current_slope = (current_bpm - START_BPM()) / 60 * GROUND_SEGMENTS_LENGTH / Math.log(current_bpm / f)
         this.nodes.push(
             -(n - PRELOADED_SEGMENTS) * current_slope
