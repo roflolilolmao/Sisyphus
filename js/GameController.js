@@ -19,6 +19,7 @@ function start_tick_refresher()
 {
     time_to_next_beat = beat_duration()
     time_since_beat = 0
+    ticker.speed = 3
     ticker.add(tick_refresher)
 }
 
