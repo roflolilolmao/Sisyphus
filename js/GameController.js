@@ -24,8 +24,8 @@ function start_tick_refresher()
 
 function tick_refresher()
 {
-    time_to_next_beat -= ticker.deltaMS
-    time_since_beat += ticker.deltaMS
+    time_to_next_beat -= ticker.elapsedMS
+    time_since_beat += ticker.elapsedMS
 
     if (!stopped && !pinged && time_since_beat > RELATIVE_TOLERANCE * beat_duration())
     {
