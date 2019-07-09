@@ -37,7 +37,9 @@ class Phases
   modify_random_track_volume(modifier)
   {
     let random = Math.floor(Math.random() * this.tracks_in_phase[this.current_phase].length)
-    let target_track = this.tracks_in_phase[this.current_phase][random]
+    let target_track = null
+    while (target_track == null || target_track == undefined)
+      target_track = this.tracks_in_phase[this.current_phase][random]
 
     target_track.mute(false)
     target_track.volume(target_track.volume() + modifier)
