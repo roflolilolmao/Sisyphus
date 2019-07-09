@@ -288,6 +288,13 @@ class DrowLegendaryRelic extends DrowRelic
 }
 
 ENDURANCE_ID = 0
+TOUGHNESS_ID = 1
+MIDAS_ID = 2
+TARDNESS_ID = 3
+MASTERY_ID = 4
+GREAT_LUCK_ID = 5
+EASE_ID = 6
+TURTLE_ID = 7
 
 AVAILABLE_RELICS = [
     {'name': 'Feather of endurance', 'rarity': Relic, 'color': 0xff7b7e, 'base_price': 5, 'text': 'Fatigue regenerates over time'},

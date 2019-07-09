@@ -29,7 +29,7 @@ class Phases
       this.current_phase = 0
       return
     }
-    this.current_phase = Math.floor((correct_keys - P0_TOTAL_KEYS) / (this.keys_per_phase)) + 1
+    this.current_phase = Math.floor((correct_keys - P0_TOTAL_KEYS) / (this.keys_per_phase * (1 - 0.05 * relics[TARDNESS_ID].level))) + 1
     if (this.current_phase > 3)
       this.current_phase = 3
   }

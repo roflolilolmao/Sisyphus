@@ -68,16 +68,16 @@ function call_functions(arg)
         return
 
     let relative_difference = difference_to_beat() / beat_duration()
-    if (relative_difference > RELATIVE_TOLERANCE && difference_to_beat() > 100)
+    if (relative_difference > RELATIVE_TOLERANCE && difference_to_beat() > 100 + relics[MASTERY_ID].level * 10)
     {
-        scene.character.increment_fatigue(25 * relative_difference)
+        scene.character.increment_fatigue((25 * relative_difference) * (1 - 0.1 * relics[TOUGHNESS_ID].level))
         return
     }
 
     let result = scene.keys.try_key(arg.key)
     if (result == KEY_FALSE)
     {
-        scene.character.increment_fatigue((50 + Math.random() * 5))
+        scene.character.increment_fatigue((50 + Math.random() * 5) * (1 - 0.1 * relics[TOUGHNESS_ID].level))
         return
     }
 
@@ -85,7 +85,10 @@ function call_functions(arg)
     {
         touched = true
         correct_keys++
-        current_bpm += 0.3
+        if (relics[EASE_ID].level > 0)
+            current_bpm += 0.2
+        else
+            current_bpm += 0.3
         phases.set_according_to_correct_keys()
         if (phases.current_phase)
             YOU_HAFF_TO_BE_LOUDER()

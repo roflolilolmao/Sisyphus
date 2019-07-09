@@ -5,10 +5,10 @@ const KEYS_SPECIFICS = {
     'k': {'y_offset': 150, 'color': 0xff55ff}
 }
 const PHASES_KEYS_PROBABILITY = [
-    {1: 0.95, 2: 0.05},
-    {1: 0.89, 2: 0.10, 3: 0.01},
-    {1: 0.74, 2: 0.15, 3: 0.10, 4: 0.01},
-    {1: 0.25, 2: 0.25, 3: 0.25, 4: 0.25},
+    {4: 0.00, 3: 0.00, 2: 0.05, 1: 0.95},
+    {4: 0.00, 3: 0.01, 2: 0.10, 1: 0.89},
+    {4: 0.01, 3: 0.10, 2: 0.15, 1: 0.74},
+    {4: 0.25, 3: 0.25, 2: 0.25, 1: 0.25},
 ]
 
 const AVAILABLE_KEYS = [
@@ -35,10 +35,13 @@ function random_count()
 
     for (p in probabilities)
     {
-        sum += probabilities[p]
+        let x = probabilities[p]
+        x = x * (1 - relics[GREAT_LUCK_ID].level * 0.05)
+        sum += x
         if (r <= sum)
             return p
     }
+    return 1
 }
 
 function random_keys()
@@ -133,7 +136,8 @@ class KeyStack
                 {
                     this.keys[i].container.destroy({'children': true})
                     this.keys.splice(i, 1)
-                    gold += 1
+                    scene.character.fatigue = Math.max(0, scene.character.fatigue - relics[ENDURANCE_ID].level)
+                    gold += 1 * (1 + relics[MIDAS_ID].level)
                     break
                 }
             }

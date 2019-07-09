@@ -54,7 +54,7 @@ class Vegetation
         this.add_plant(
             ground,
             textures['tree'],
-            0.6 / current_bpm * START_BPM,
+            0.6 / current_bpm * START_BPM(),
             {'x': x, 'y': ground.height_at(x)},
             this.trees)
     }

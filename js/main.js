@@ -9,7 +9,7 @@ app.stage.addChild(graphics_container)
 
 const CAMERA_OFFSET_X = app.screen.width / 3
 const CAMERA_OFFSET_Y = app.screen.height / 3 * 2
-const START_BPM = 82
+const START_BPM_lel = 82
 
 let best_altitude = 0
 
@@ -17,7 +17,14 @@ let scene = null
 let audio = null
 let stopped = true
 let phases = null
-var current_bpm = START_BPM
+var current_bpm = START_BPM_lel
+
+function START_BPM()
+{
+    if (relics[TURTLE_ID].level > 0)
+        return 62
+    return START_BPM_lel
+}
 
 let game_over_context = null
 
@@ -45,7 +52,7 @@ function reset_game()
 {
     pinged = false
     touched = false
-    current_bpm = START_BPM
+    current_bpm = START_BPM()
     correct_keys = 0
     phases.set_according_to_correct_keys()
     keys_spawned = 0
