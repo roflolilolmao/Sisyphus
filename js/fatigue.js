@@ -23,13 +23,13 @@ class Fatigue
 
         let boom = new PIXI.Graphics()
         boom.beginFill(0xff0000)
-        boom.drawRect(5 + this.bar.width, 5, 5 + amount, 50)
+        boom.drawRect(5 + this.bar.width, 5, amount, 50)
         boom.endFill()
         boom.position.x = 0
         this.container.addChild(boom)
 
         this.bar.beginFill(0xF7CA18)
-        this.bar.drawRect(5, 5, 5 + mabite, 50)
+        this.bar.drawRect(5, 5, mabite, 50)
         this.bar.endFill()
 
         ticker.add(animate_dick, {'boom': boom, 'time': current_bpm})

@@ -111,28 +111,34 @@ function beats_period()
     return 60 / current_bpm
 }
 
+let last_move_context = null
+
 function step_left()
 {
-    ticker.add(move_character_for_a_beat, {
+    ticker.remove(move_character_for_a_beat, last_move_context)
+    last_move_context = {
         'character': scene.character,
         'remaining_time': time_to_next_human_beat(),
         'distance': distance_to_next_key(),
         'animation': scene.character.animate_step_left
-    })
+    }
+    ticker.add(move_character_for_a_beat, last_move_context)
     queue_keys()
     next_step = step_right
 }
 
 function step_right()
 {
-    ticker.add(move_character_for_a_beat, {
+    ticker.remove(move_character_for_a_beat, last_move_context)
+    last_move_context = {
         'character': scene.character,
         'remaining_time': time_to_next_human_beat(),
         'distance': distance_to_next_key(),
         'animation': scene.character.animate_step_right
-    })
+    }
+    ticker.add(move_character_for_a_beat, last_move_context)
     queue_keys()
-    next_step = step_right
+    next_step = step_left
 }
 
 window.addEventListener('keydown', call_functions.bind(this))
