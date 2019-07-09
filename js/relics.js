@@ -170,7 +170,7 @@ class DrowRelic
             new PIXI.Point(60, 60),
             new PIXI.Point(60, 0)
         ])
-        this.container.interactive = true;
+        this.container.interactive = true
         this.container.on('click', (event) => {
             relic.level_up()
         })
